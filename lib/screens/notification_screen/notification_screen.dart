@@ -21,14 +21,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: White,
+      backgroundColor: primaryColor,
       body: SafeArea(
           child: Column(
         children: [
           Expanded(
               flex: 1,
               child: Container(
-                decoration: const BoxDecoration(color: White),
+                decoration: const BoxDecoration(color: primaryColor),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -58,7 +58,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               flex: 12,
               child: Container(
                   decoration: const BoxDecoration(
-                      color: Background,
+                      gradient: BG_Gradient,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20))),

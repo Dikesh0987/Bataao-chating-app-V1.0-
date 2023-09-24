@@ -272,120 +272,123 @@ class __mainBodyState extends State<_mainBody> {
             ),
           ];
         },
-        body: Column(
-          children: [
-            Expanded(
-                child: Container(
-                    decoration: const BoxDecoration(
-                        gradient: BG_Gradient,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    child: StreamBuilder(
-                      stream: APIs.getAllUsersConn(),
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          // if data is loading
-                          case ConnectionState.waiting:
-                          case ConnectionState.none:
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-
-                          // data loaded
-                          case ConnectionState.active:
-                          case ConnectionState.done:
-                            final data = snapshot.data?.docs;
-                            _connList = data?.map((e) => e.id).toList() ?? [];
-
-                            debugPrint("$_connList");
-
-                            if (_connList.isNotEmpty) {
-                              return StreamBuilder(
-                                stream: APIs.getSalectedUserData(_connList),
-                                builder: (context, snapshot) {
-                                  switch (snapshot.connectionState) {
-                                    // if data is loading
-                                    case ConnectionState.waiting:
-                                    case ConnectionState.none:
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-
-                                    // data loaded
-                                    case ConnectionState.active:
-                                    case ConnectionState.done:
-                                      final data = snapshot.data?.docs;
-                                      _list = data
-                                              ?.map((e) =>
-                                                  ChatUser.fromJson(e.data()))
-                                              .toList() ??
-                                          [];
-
-                                      if (_list.isNotEmpty) {
-                                        return ListView.builder(
-                                          itemCount: _isSearching
-                                              ? _searchList.length
-                                              : _list.length,
-                                          padding:
-                                              const EdgeInsets.only(top: 5),
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          itemBuilder: (context, index) {
-                                            return ChatUserCard(
-                                              user: _isSearching
-                                                  ? _searchList[index]
-                                                  : _list[index],
-                                            );
-                                          },
-                                        );
-                                      } else {
-                                        return const Center(
-                                          child: Text(
-                                            "No Data Found",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        );
-                                      }
-                                  }
-                                },
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                  child: Container(
+                      decoration: const BoxDecoration(
+                          gradient: BG_Gradient,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                      child: StreamBuilder(
+                        stream: APIs.getAllUsersConn(),
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            // if data is loading
+                            case ConnectionState.waiting:
+                            case ConnectionState.none:
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
-                            } else {
-                              return Center(
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    backgroundColor: Colors.white,
-                                    minimumSize: Size(
-                                      MediaQuery.of(context).size.width * .5,
-                                      MediaQuery.of(context).size.height * .05,
+
+                            // data loaded
+                            case ConnectionState.active:
+                            case ConnectionState.done:
+                              final data = snapshot.data?.docs;
+                              _connList = data?.map((e) => e.id).toList() ?? [];
+
+                              debugPrint("$_connList");
+
+                              if (_connList.isNotEmpty) {
+                                return StreamBuilder(
+                                  stream: APIs.getSalectedUserData(_connList),
+                                  builder: (context, snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      // if data is loading
+                                      case ConnectionState.waiting:
+                                      case ConnectionState.none:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+
+                                      // data loaded
+                                      case ConnectionState.active:
+                                      case ConnectionState.done:
+                                        final data = snapshot.data?.docs;
+                                        _list = data
+                                                ?.map((e) =>
+                                                    ChatUser.fromJson(e.data()))
+                                                .toList() ??
+                                            [];
+
+                                        if (_list.isNotEmpty) {
+                                          return ListView.builder(
+                                            itemCount: _isSearching
+                                                ? _searchList.length
+                                                : _list.length,
+                                            padding:
+                                                const EdgeInsets.only(top: 5),
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              return ChatUserCard(
+                                                user: _isSearching
+                                                    ? _searchList[index]
+                                                    : _list[index],
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          return const Center(
+                                            child: Text(
+                                              "No Data Found",
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                          );
+                                        }
+                                    }
+                                  },
+                                );
+                              } else {
+                                return Center(
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const StadiumBorder(),
+                                      backgroundColor: Colors.white,
+                                      minimumSize: Size(
+                                        MediaQuery.of(context).size.width * .5,
+                                        MediaQuery.of(context).size.height *
+                                            .05,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AllUsersScreen()),
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.add_reaction,
+                                      size: 28,
+                                      color: Colors.black,
+                                    ),
+                                    label: const Text(
+                                      "Make Some Connections",
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.black),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AllUsersScreen()),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.add_reaction,
-                                    size: 28,
-                                    color: Colors.black,
-                                  ),
-                                  label: const Text(
-                                    "Make Some Connections",
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.black),
-                                  ),
-                                ),
-                              );
-                            }
-                        }
-                      },
-                    ))),
-          ],
+                                );
+                              }
+                          }
+                        },
+                      ))),
+            ],
+          ),
         ),
       ),
     );
@@ -402,7 +405,7 @@ class __mainBodyState extends State<_mainBody> {
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (context) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            // backgroundColor: Colors.red,
             body: SafeArea(
               child: Form(
                 key: _formKey,

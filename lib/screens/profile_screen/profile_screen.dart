@@ -28,14 +28,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Background,
-
-        // Main Body of this part
+        
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * .02),
-            child: SingleChildScrollView(
+          child: Container(
+            decoration: const BoxDecoration(gradient: BG_Gradient),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * .01),
               child: Column(
                 children: [
                   const SizedBox(
@@ -193,7 +192,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen()));
+                                    builder: (context) =>
+                                        const WelcomeScreen()));
                           });
                         });
                       },

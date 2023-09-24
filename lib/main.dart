@@ -30,6 +30,7 @@ void main() async {
     );
     debugPrint("\nNotifications Chanel : $result");
     runApp(const MyApp());
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
   });
 }
 
@@ -43,15 +44,14 @@ class MyApp extends StatelessWidget {
       title: 'Bataao',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
-    fontFamily: GoogleFonts.lato().fontFamily,
+          fontFamily: GoogleFonts.lato().fontFamily,
           appBarTheme: const AppBarTheme(
-        elevation: 0,
-        titleTextStyle: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-      )),
+            elevation: 0,
+            titleTextStyle: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+          )),
       initialRoute: '/splash_screen',
       routes: {
         '/welcome_screen': (context) => const WelcomeScreen(),

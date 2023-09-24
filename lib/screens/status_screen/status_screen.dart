@@ -48,6 +48,7 @@ class _StatusScreenState extends State<StatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       body: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: SafeArea(
@@ -91,7 +92,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                   return Container(
                                     decoration: const BoxDecoration(
                                         // color: kLightSecondaryColor,
-                                        color: Background,
+                                        color: primaryColor,
                                         borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(20),
                                             topLeft: Radius.circular(20),
@@ -105,7 +106,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                                     .size
                                                     .width,
                                                 decoration: const BoxDecoration(
-                                                    color: White),
+                                                    color: primaryColor),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -152,7 +153,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                                         bottomRight:
                                                             Radius.circular(
                                                                 20)),
-                                                gradient: gradient1),
+                                                gradient: BG_Gradient),
                                             child: Center(
                                                 child: Container(
                                                     decoration: BoxDecoration(
@@ -183,7 +184,7 @@ class _StatusScreenState extends State<StatusScreen> {
                       : Container(
                           decoration: const BoxDecoration(
                               // color: kLightSecondaryColor,
-                              color: Background,
+                              color: primaryColor,
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20),
                                   topLeft: Radius.circular(20),
@@ -194,8 +195,8 @@ class _StatusScreenState extends State<StatusScreen> {
                                   flex: 1,
                                   child: Container(
                                       width: MediaQuery.of(context).size.width,
-                                      decoration:
-                                          const BoxDecoration(color: White),
+                                      decoration: const BoxDecoration(
+                                          color: primaryColor),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -226,10 +227,9 @@ class _StatusScreenState extends State<StatusScreen> {
                               Expanded(
                                   flex: 12,
                                   child: Container(
-                                    decoration: BoxDecoration(
-                                        // color: kLightSecondaryColor,
-                                        gradient: gradient3,
-                                        borderRadius: const BorderRadius.only(
+                                    decoration: const BoxDecoration(
+                                        gradient: BG_Gradient,
+                                        borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(20),
                                             topLeft: Radius.circular(20),
                                             topRight: Radius.circular(20),
@@ -270,7 +270,7 @@ class _StatusScreenState extends State<StatusScreen> {
                   flex: 1,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(color: Background),
+                    decoration: const BoxDecoration(color: primaryColor),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: StreamBuilder(
@@ -327,9 +327,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                                           if (_statusViewState ==
                                                               true) {
                                                             _userIndex = index;
-                                                          }
-                                                          
-                                                           else {
+                                                          } else {
                                                             _statusViewState ==
                                                                 true;
                                                             _userIndex = index;

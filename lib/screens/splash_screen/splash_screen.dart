@@ -1,5 +1,6 @@
 import 'package:bataao/api/apis.dart';
 import 'package:bataao/screens/welcome_screen/welcome_screen.dart';
+import 'package:bataao/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -43,16 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SafeArea(
         child: Expanded(
           child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF0072FF),
-                  Color(0xFF00C6FF)
-                ], // Replace with your desired colors
-              ),
-            ),
+            decoration: const BoxDecoration(gradient: BG_Gradient),
             child: const Center(
                 child: SizedBox(
               width: 150,

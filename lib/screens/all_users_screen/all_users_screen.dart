@@ -38,6 +38,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: primaryColor,
       body: _mainBody(),
     );
   }
@@ -70,6 +71,7 @@ class __mainBodyState extends State<_mainBody> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: primaryColor,
               automaticallyImplyLeading: false,
               title: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -79,7 +81,8 @@ class __mainBodyState extends State<_mainBody> {
                           border: InputBorder.none,
                           hintText: "search name or email ",
                         ),
-                        style: const TextStyle(fontSize: 16, letterSpacing: 0.5),
+                        style:
+                            const TextStyle(fontSize: 16, letterSpacing: 0.5),
                         autofocus: true,
                         onChanged: (val) {
                           _searchList.clear();
@@ -144,9 +147,9 @@ class __mainBodyState extends State<_mainBody> {
           children: [
             Expanded(
               child: Container(
-                  decoration: BoxDecoration(
-                      gradient: gradient0,
-                      borderRadius: const BorderRadius.only(
+                  decoration: const BoxDecoration(
+                      gradient: BG_Gradient,
+                      borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20))),
                   child: StreamBuilder(
@@ -156,7 +159,8 @@ class __mainBodyState extends State<_mainBody> {
                         // if data has been loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
 
                         // data lodede
 
