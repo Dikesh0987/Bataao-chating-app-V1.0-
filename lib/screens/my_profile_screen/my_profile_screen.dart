@@ -1,10 +1,9 @@
 import 'package:bataao/api/apis.dart';
 import 'package:bataao/models/chat_user.dart';
-import 'package:bataao/models/connection_model.dart';
+
 import 'package:bataao/screens/view_post_screen/view_post_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 import '../../models/post_model.dart';
 import '../../theme/style.dart';
@@ -22,10 +21,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     final String imgUrl = widget.user.images;
 
-    List<Connection> _clist = [];
 
-    List<Post> _posts = [];
-    List<String> _postId = [];
+    List<Post> posts = [];
+    List<String> postId = [];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -35,13 +33,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             Expanded(
                 flex: 3,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Padding(
@@ -62,25 +60,25 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "${widget.user.name}",
+                                    widget.user.name,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     widget.user.about,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black54,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                 ],
@@ -88,7 +86,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             ),
                             IconButton(
                                 onPressed: () => Navigator.pop(context),
-                                icon: Icon(Icons.clear))
+                                icon: const Icon(Icons.clear))
                           ],
                         ),
                       ),
@@ -99,7 +97,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 flex: 20,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Background,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -111,37 +109,37 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          _posts = snapshot.data!.docs
+                          posts = snapshot.data!.docs
                               .map((doc) => Post.fromJson(
                                   doc.data() as Map<String, dynamic>))
                               .toList();
-                          _postId =
+                          postId =
                               snapshot.data!.docs.map((e) => e.id).toList();
                         }
 
                         return GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
                           ),
-                          itemCount: _posts.length,
+                          itemCount: posts.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ViewPostScreen(
-                                            post: _posts[index],
+                                            post: posts[index],
                                             cuser: widget.user,
-                                            postsId: _postId[index],
+                                            postsId: postId[index],
                                           ))),
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                        image: NetworkImage(_posts[index].link),
+                                        image: NetworkImage(posts[index].link),
                                         fit: BoxFit.cover)),
                               ),
                             );

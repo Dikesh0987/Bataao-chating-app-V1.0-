@@ -1,7 +1,8 @@
+// ignore_for_file: camel_case_types
+
 import 'package:bataao/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../api/apis.dart';
 import '../../models/chat_user.dart';
 import '../../widgets/chat_user_card.dart';
@@ -23,10 +24,12 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
 
     SystemChannels.lifecycle.setMessageHandler((message) {
       if (APIs.auth.currentUser != null) {
-        if (message.toString().contains('resume'))
+        if (message.toString().contains('resume')) {
           APIs.updateActiveStatus(true);
-        if (message.toString().contains('pause'))
+        }
+        if (message.toString().contains('pause')) {
           APIs.updateActiveStatus(false);
+        }
       }
       return Future.value(message);
     });
@@ -34,7 +37,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: _mainBody(),
     );
   }
@@ -42,7 +45,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
 
 // Main Body
 class _mainBody extends StatefulWidget {
-  const _mainBody({super.key});
+  const _mainBody();
 
   @override
   State<_mainBody> createState() => __mainBodyState();
@@ -72,11 +75,11 @@ class __mainBodyState extends State<_mainBody> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: _isSearching
                     ? TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "search name or email ",
                         ),
-                        style: TextStyle(fontSize: 16, letterSpacing: 0.5),
+                        style: const TextStyle(fontSize: 16, letterSpacing: 0.5),
                         autofocus: true,
                         onChanged: (val) {
                           _searchList.clear();
@@ -124,7 +127,7 @@ class __mainBodyState extends State<_mainBody> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.clear,
                           color: Colors.black54,
                           size: 26,
@@ -143,7 +146,7 @@ class __mainBodyState extends State<_mainBody> {
               child: Container(
                   decoration: BoxDecoration(
                       gradient: gradient0,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20))),
                   child: StreamBuilder(
@@ -153,7 +156,7 @@ class __mainBodyState extends State<_mainBody> {
                         // if data has been loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
 
                         // data lodede
 
@@ -170,15 +173,15 @@ class __mainBodyState extends State<_mainBody> {
                                 itemCount: _isSearching
                                     ? _searchList.length
                                     : _list.length,
-                                padding: EdgeInsets.only(top: 5),
-                                physics: BouncingScrollPhysics(),
+                                padding: const EdgeInsets.only(top: 5),
+                                physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return _isSearching
                                       ? SearchUserCard(user: _searchList[index])
                                       : ChatUserCard(user: _list[index]);
                                 });
                           } else {
-                            return Center(
+                            return const Center(
                               child: Text(
                                 "Currently has no users",
                                 style: TextStyle(fontSize: 20),

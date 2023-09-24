@@ -86,7 +86,7 @@ class _FeedCardsState extends State<FeedCards> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 5, left: 2, right: 2),
+      padding: const EdgeInsets.only(top: 5, left: 2, right: 2),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -96,7 +96,7 @@ class _FeedCardsState extends State<FeedCards> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -112,7 +112,7 @@ class _FeedCardsState extends State<FeedCards> {
                       leading: Container(
                         width: 50.0,
                         height: 50.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -134,8 +134,8 @@ class _FeedCardsState extends State<FeedCards> {
                         ),
                       ),
                       title: Text(
-                        '${widget.cuser.name}',
-                        style: TextStyle(
+                        widget.cuser.name,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -149,10 +149,9 @@ class _FeedCardsState extends State<FeedCards> {
                                   builder: (context) =>
                                       ViewProfileScreen(user: widget.cuser)));
                         },
-                        child: Text("view"),
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          side: BorderSide(
+                          side: const BorderSide(
                             width: 1,
                             color: Colors.blue,
                           ),
@@ -160,11 +159,12 @@ class _FeedCardsState extends State<FeedCards> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
+                        child: const Text("view"),
                       ),
                     ),
                   ),
                   InkWell(
-                    onDoubleTap: () => print('Like post'),
+                    onDoubleTap: () => debugPrint('Like post'),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -177,12 +177,12 @@ class _FeedCardsState extends State<FeedCards> {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.all(10.0),
                       width: double.infinity,
                       height: 400.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Color.fromARGB(115, 235, 231, 231),
                             offset: Offset(0, 5),
@@ -209,7 +209,7 @@ class _FeedCardsState extends State<FeedCards> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -228,7 +228,7 @@ class _FeedCardsState extends State<FeedCards> {
                                   ),
                                   iconSize: 30.0,
                                   onPressed: () async {
-                                    await _buttonPressed
+                                    _buttonPressed
                                         ? APIs.UnlikeData(APIs.selfInfo,
                                                 widget.post, widget.postsId)
                                             .then((value) {
@@ -250,18 +250,18 @@ class _FeedCardsState extends State<FeedCards> {
                                 ),
                                 Text(
                                   _collectionLength.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: 20.0),
+                            const SizedBox(width: 20.0),
                             Row(
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.chat_outlined),
+                                  icon: const Icon(Icons.chat_outlined),
                                   iconSize: 30.0,
                                   onPressed: () {
                                     _showCommentDialog();
@@ -269,7 +269,7 @@ class _FeedCardsState extends State<FeedCards> {
                                 ),
                                 Text(
                                   _commentLength.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -306,11 +306,11 @@ class _FeedCardsState extends State<FeedCards> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-              contentPadding:
-                  EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 10),
+              contentPadding: const EdgeInsets.only(
+                  left: 24, right: 24, top: 20, bottom: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              title: Row(
+              title: const Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Icon(
@@ -338,7 +338,7 @@ class _FeedCardsState extends State<FeedCards> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Cancel",
                     style: TextStyle(fontSize: 16),
                   ),
@@ -350,7 +350,7 @@ class _FeedCardsState extends State<FeedCards> {
                         .then((value) => APIs.sendPushNotifications(
                             widget.cuser, "Comment : $makeComment"));
                   },
-                  child: Text(
+                  child: const Text(
                     "Go",
                     style: TextStyle(fontSize: 16),
                   ),

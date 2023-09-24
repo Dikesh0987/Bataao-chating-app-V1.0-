@@ -40,8 +40,8 @@ class _MessageCardState extends State<MessageCard> {
         Flexible(
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.text ? 15 : 2),
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: const BoxDecoration(
                 color: White,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
@@ -50,19 +50,19 @@ class _MessageCardState extends State<MessageCard> {
             child: widget.message.type == Type.text
                 ? Text(
                     widget.message.msg,
-                    style: TextStyle(fontSize: 15, color: Colors.black87),
+                    style: const TextStyle(fontSize: 15, color: Colors.black87),
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
                       imageUrl: widget.message.msg,
-                      placeholder: (context, url) => Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                         ),
                       ),
-                      errorWidget: (context, url, error) => Icon(
+                      errorWidget: (context, url, error) => const Icon(
                         Icons.image,
                         size: 70,
                       ),
@@ -75,7 +75,7 @@ class _MessageCardState extends State<MessageCard> {
           child: Text(
             myDateUtil.getFormattedTime(
                 context: context, time: widget.message.sent),
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 13,
                 color: Colors.black54,
                 fontWeight: FontWeight.w600),
@@ -96,7 +96,7 @@ class _MessageCardState extends State<MessageCard> {
               child: Text(
                 myDateUtil.getFormattedTime(
                     context: context, time: widget.message.sent),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 13,
                     color: Colors.black54,
                     fontWeight: FontWeight.w600),
@@ -107,13 +107,13 @@ class _MessageCardState extends State<MessageCard> {
             // ),
 
             if (widget.message.read.isNotEmpty)
-              Icon(
+              const Icon(
                 Icons.done_all,
                 size: 18,
                 color: Colors.blue,
               )
             else
-              Icon(
+              const Icon(
                 Icons.done,
                 size: 18,
                 color: Color.fromARGB(255, 0, 0, 0),
@@ -123,8 +123,8 @@ class _MessageCardState extends State<MessageCard> {
         Flexible(
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.text ? 15 : 2),
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: const BoxDecoration(
                 color: PrimaryBlue,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
@@ -133,19 +133,19 @@ class _MessageCardState extends State<MessageCard> {
             child: widget.message.type == Type.text
                 ? Text(
                     widget.message.msg,
-                    style: TextStyle(fontSize: 15, color: Colors.black87),
+                    style: const TextStyle(fontSize: 15, color: Colors.black87),
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
                       imageUrl: widget.message.msg,
-                      placeholder: (context, url) => Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                         ),
                       ),
-                      errorWidget: (context, url, error) => Icon(
+                      errorWidget: (context, url, error) => const Icon(
                         Icons.image,
                         size: 70,
                       ),
@@ -161,7 +161,7 @@ class _MessageCardState extends State<MessageCard> {
   void _showBottomShit(bool isSelf) {
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (context) {
@@ -170,7 +170,8 @@ class _MessageCardState extends State<MessageCard> {
             children: [
               Container(
                 height: 4,
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 150),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 150),
                 decoration: BoxDecoration(
                     color: Colors.grey, borderRadius: BorderRadius.circular(8)),
               ),
@@ -184,7 +185,7 @@ class _MessageCardState extends State<MessageCard> {
                           DialogSnackBar.showSnackBar(context, "Copied Text !");
                         });
                       },
-                      child: _OptionItem(
+                      child: const _OptionItem(
                         icon: Icon(
                           Icons.copy,
                           color: Colors.blue,
@@ -201,10 +202,10 @@ class _MessageCardState extends State<MessageCard> {
                                   albumName: 'Bataao')
                               .then((success) {});
                         } catch (e) {
-                          print('\nSaving Image $e');
+                          debugPrint('\nSaving Image $e');
                         }
                       },
-                      child: _OptionItem(
+                      child: const _OptionItem(
                         icon: Icon(
                           Icons.save,
                           color: Colors.blue,
@@ -214,7 +215,7 @@ class _MessageCardState extends State<MessageCard> {
                       ),
                     ),
               if (isSelf)
-                Divider(
+                const Divider(
                   color: Colors.black54,
                   indent: 20,
                   endIndent: 20,
@@ -225,7 +226,7 @@ class _MessageCardState extends State<MessageCard> {
                     Navigator.pop(context);
                     _showMessageUpdateDialog();
                   },
-                  child: _OptionItem(
+                  child: const _OptionItem(
                     icon: Icon(
                       Icons.edit,
                       color: Colors.blue,
@@ -240,7 +241,7 @@ class _MessageCardState extends State<MessageCard> {
                     APIs.deleteMessage(widget.message)
                         .then((value) => Navigator.pop(context));
                   },
-                  child: _OptionItem(
+                  child: const _OptionItem(
                     icon: Icon(
                       Icons.delete,
                       color: Colors.red,
@@ -249,13 +250,13 @@ class _MessageCardState extends State<MessageCard> {
                     name: "Delete Message",
                   ),
                 ),
-              Divider(
+              const Divider(
                 color: Colors.black54,
                 indent: 20,
                 endIndent: 20,
               ),
               _OptionItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.remove_red_eye,
                   color: Colors.blue,
                   size: 26,
@@ -264,7 +265,7 @@ class _MessageCardState extends State<MessageCard> {
                     "Send At : ${myDateUtil.getMessagesTime(context: context, time: widget.message.sent)}",
               ),
               _OptionItem(
-                icon: Icon(
+                icon: const Icon(
                   Icons.remove_red_eye,
                   color: Colors.red,
                   size: 26,
@@ -284,11 +285,11 @@ class _MessageCardState extends State<MessageCard> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-              contentPadding:
-                  EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 10),
+              contentPadding: const EdgeInsets.only(
+                  left: 24, right: 24, top: 20, bottom: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              title: Row(
+              title: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
@@ -316,7 +317,7 @@ class _MessageCardState extends State<MessageCard> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Cancel",
                     style: TextStyle(fontSize: 16),
                   ),
@@ -326,7 +327,7 @@ class _MessageCardState extends State<MessageCard> {
                     Navigator.pop(context);
                     APIs.updateMessage(widget.message, updateMsg);
                   },
-                  child: Text(
+                  child: const Text(
                     "Update",
                     style: TextStyle(fontSize: 16),
                   ),
@@ -351,7 +352,7 @@ class _OptionItem extends StatelessWidget {
         Flexible(
           child: Text(
             "    $name",
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black54,
                 fontSize: 16,
                 fontWeight: FontWeight.w500),

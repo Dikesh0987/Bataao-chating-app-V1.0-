@@ -15,10 +15,8 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   List<ChatUser> _list = [];
-  List<String> _userId = [];
-  List<String> _userId1 = [];
+
   List<Connection> _connList = [];
-  List<String> _fromUserId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Expanded(
               flex: 1,
               child: Container(
-                decoration: BoxDecoration(color: White),
+                decoration: const BoxDecoration(color: White),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -38,12 +36,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     children: [
                       IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.clear,
                             size: 24,
                           )),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 10),
                         child: Text(
                           "Notifications",
                           style: TextStyle(
@@ -59,7 +57,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Expanded(
               flex: 12,
               child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Background,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -71,7 +69,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           // if data has been loading
                           case ConnectionState.waiting:
                           case ConnectionState.none:
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
 
@@ -97,7 +95,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           // if data has been loading
                                           case ConnectionState.waiting:
                                           case ConnectionState.none:
-                                            return Center(
+                                            return const Center(
                                               child:
                                                   CircularProgressIndicator(),
                                             );
@@ -119,7 +117,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                 user: _list[index],
                                               );
                                             } else {
-                                              return Center(
+                                              return const Center(
                                                 child: Text(
                                                   "No Data Found",
                                                   style:
@@ -132,7 +130,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     );
                                   });
                             } else {
-                              return Center(
+                              return const Center(
                                 child: Text(
                                   "Notificatios",
                                   style: TextStyle(fontSize: 20),

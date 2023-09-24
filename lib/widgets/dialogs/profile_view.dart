@@ -13,7 +13,7 @@ class ProfileViewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.all(0),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: SizedBox(
@@ -34,7 +34,7 @@ class ProfileViewDialog extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: user.images,
                     // placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => CircleAvatar(
+                    errorWidget: (context, url, error) => const CircleAvatar(
                       child: Icon(Icons.person),
                     ),
                   ),
@@ -46,8 +46,8 @@ class ProfileViewDialog extends StatelessWidget {
               left: 10,
               width: 200,
               child: Text(
-                "${user.name}",
-                style: TextStyle(
+                user.name,
+                style: const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 14, color: Body),
               ),
             ),
@@ -56,9 +56,9 @@ class ProfileViewDialog extends StatelessWidget {
               left: 10,
               width: 200,
               child: Text(
-                "${user.about}",
+                user.about,
                 maxLines: 1,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 14, color: Body),
               ),
             ),
@@ -75,7 +75,7 @@ class ProfileViewDialog extends StatelessWidget {
                                 builder: (_) =>
                                     ViewProfileScreen(user: user)));
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.info_outline,
                         size: 26,
                         color: Sky_Blue,

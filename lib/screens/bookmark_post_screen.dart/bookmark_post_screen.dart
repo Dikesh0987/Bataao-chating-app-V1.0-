@@ -3,11 +3,8 @@ import 'package:bataao/models/chat_user.dart';
 import 'package:bataao/models/post_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../theme/style.dart';
-import '../view_post_screen/view_post_screen.dart';
 
 class BookmarkPostScreen extends StatefulWidget {
   const BookmarkPostScreen({super.key, required this.users});
@@ -20,7 +17,6 @@ class BookmarkPostScreen extends StatefulWidget {
 
 class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
   List<String> _pIdlist = [];
-  List<Post> _plist = [];
   List<ChatUser> pUsers = [];
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,7 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
           Expanded(
               flex: 1,
               child: Container(
-                decoration: BoxDecoration(color: White),
+                decoration: const BoxDecoration(color: White),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -40,12 +36,12 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                     children: [
                       IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.clear,
                             size: 24,
                           )),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 10),
                         child: Text(
                           "Bookmark",
                           style: TextStyle(
@@ -61,7 +57,7 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
           Expanded(
               flex: 12,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Background,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -75,7 +71,8 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                           // if data has been loading
                           case ConnectionState.waiting:
                           case ConnectionState.none:
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
 
                           // data lodede
 
@@ -83,7 +80,7 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                           case ConnectionState.done:
                             final data = snapshot.data?.docs;
                             _pIdlist = data?.map((e) => e.id).toList() ?? [];
-                            print(_pIdlist);
+                            debugPrint('$_pIdlist');
 
                             if (_pIdlist.isNotEmpty) {
                               return StreamBuilder<QuerySnapshot>(
@@ -95,12 +92,12 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   if (snapshot.hasError) {
-                                    return Text('Something went wrong');
+                                    return const Text('Something went wrong');
                                   }
 
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    return Center(
+                                    return const Center(
                                         child: CircularProgressIndicator());
                                   }
 
@@ -117,7 +114,7 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
 
                                   return GridView.builder(
                                     gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 10.0,
                                       mainAxisSpacing: 10.0,
@@ -135,30 +132,19 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                                             AsyncSnapshot<QuerySnapshot>
                                                 snapshot) {
                                           if (snapshot.hasError) {
-                                            return Text('Something went wrong');
+                                            return const Text(
+                                                'Something went wrong');
                                           }
 
                                           if (snapshot.connectionState ==
                                               ConnectionState.waiting) {
-                                            return Center(
+                                            return const Center(
                                                 child:
                                                     CircularProgressIndicator());
                                           }
 
-                                          final users = snapshot.data!.docs
-                                              .map((doc) => ChatUser.fromJson(
-                                                  doc.data()!
-                                                      as Map<String, dynamic>))
-                                              .toList();
-
-                                          final Map<String, ChatUser> userMap =
-                                              Map.fromIterable(
-                                            users,
-                                            key: (user) => user.id,
-                                            value: (user) => user,
-                                          );
                                           final post = posts[index];
-                                          final user = userMap[post.uId];
+
                                           return InkWell(
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -177,7 +163,7 @@ class _BookmarkPostScreenState extends State<BookmarkPostScreen> {
                                 },
                               );
                             } else {
-                              return Center(
+                              return const Center(
                                 child: Text(
                                   "(No bookmark found)",
                                   style: TextStyle(fontSize: 20, color: Body),

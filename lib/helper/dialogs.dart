@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 // Old Dialogs .....
 class DialogSnackBar {
@@ -16,6 +15,6 @@ class MyProgressBars {
   static void showProgressBar(BuildContext context) {
     showDialog(
         context: context,
-        builder: (_) => Center(child: CircularProgressIndicator()));
+        builder: (_) => const Center(child: CircularProgressIndicator()));
   }
 }

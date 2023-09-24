@@ -57,19 +57,19 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Background,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30))),
                   child: StreamBuilder(
-                    stream: APIs.getAllMessages(widget.user), 
+                    stream: APIs.getAllMessages(widget.user),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         // if data has been loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                          return SizedBox();
+                          return const SizedBox();
 
                         // data lodede
 
@@ -86,13 +86,14 @@ class _ChatScreenState extends State<ChatScreen> {
                             return ListView.builder(
                                 reverse: true,
                                 itemCount: _list.length,
-                                padding: EdgeInsets.only(top: 5, bottom: 5),
-                                physics: BouncingScrollPhysics(),
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return MessageCard(message: _list[index]);
                                 });
                           } else {
-                            return Center(
+                            return const Center(
                               child: Text(
                                 "Say Hii ! 😊",
                                 style: TextStyle(fontSize: 20),
@@ -106,11 +107,11 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               // circular progress  indicator ..
               if (_isUploading)
-                Align(
+                const Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: CircularProgressIndicator(
                         strokeWidth: 2.5,
                       ),
@@ -127,10 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     config: Config(
                       columns: 7,
                       bgColor: White,
-                      emojiSizeMax: 32 *
-                          (Platform.isIOS
-                              ? 1.30
-                              : 1.0), 
+                      emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
                     ),
                   ),
                 )
@@ -158,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 // if Data has been not loded or some error in messeing load.
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
 
@@ -175,7 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: [
                       Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           ClipRRect(
@@ -189,12 +187,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                   : widget.user.images,
                               // placeholder: (context, url) => CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
-                                  CircleAvatar(
+                                  const CircleAvatar(
                                 child: Icon(Icons.person),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -205,12 +203,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                 list.isNotEmpty
                                     ? list[0].name
                                     : widget.user.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.black87,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 2,
                               ),
                               Text(
@@ -225,15 +223,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                           lastActive: list[0].lastActive),
                                   style: list.isNotEmpty
                                       ? list[0].isOnline
-                                          ? TextStyle(
+                                          ? const TextStyle(
                                               fontSize: 12,
                                               color: Colors.green,
                                               fontWeight: FontWeight.bold)
-                                          : TextStyle(
+                                          : const TextStyle(
                                               fontSize: 12,
                                               color: Colors.black87,
                                             )
-                                      : TextStyle(
+                                      : const TextStyle(
                                           fontSize: 12,
                                           color: Colors.black87,
                                         ))
@@ -242,15 +240,15 @@ class _ChatScreenState extends State<ChatScreen> {
                         ],
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: IconButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.clear,
                             size: 28,
                             color: Body,
@@ -287,7 +285,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           _showEmoji = !_showEmoji;
                         });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.emoji_emotions_outlined,
                         color: Body,
                       )),
@@ -302,7 +300,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     },
                     controller: _textController,
                     keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Just Say Hello ! ",
                         hintStyle:
                             TextStyle(color: Body, fontWeight: FontWeight.bold),
@@ -325,7 +323,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           });
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.image,
                         color: Body,
                       )),
@@ -342,7 +340,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           setState(() {
                             _isUploading = !_isUploading;
                           });
-                          print("Image Path : ${image.path}");
+                          debugPrint("Image Path : ${image.path}");
 
                           APIs.sendChatImage(widget.user, File(image.path));
                           setState(() {
@@ -351,7 +349,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           //for hide bottom sheet
                         }
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.camera,
                         color: Body,
                       )),
@@ -371,9 +369,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
               },
               color: Colors.white,
-              shape: CircleBorder(),
-              padding: EdgeInsets.only(top: 10, right: 5, left: 10, bottom: 10),
-              child: Icon(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.only(
+                  top: 10, right: 5, left: 10, bottom: 10),
+              child: const Icon(
                 Icons.send,
                 size: 28,
                 color: PrimaryBlue,

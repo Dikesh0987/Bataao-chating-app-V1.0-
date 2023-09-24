@@ -4,7 +4,6 @@ import 'package:bataao/models/connection_model.dart';
 import 'package:bataao/screens/view_post_screen/view_post_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 import '../../models/post_model.dart';
 import '../../theme/style.dart';
@@ -22,11 +21,11 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
   Widget build(BuildContext context) {
     final String imgUrl = widget.user.images;
 
-    List<Connection> _clist = [];
+    List<Connection> clist = [];
 
-    List<Post> _posts = [];
+    List<Post> posts = [];
 
-    List<String> _postId = [];
+    List<String> postId = [];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,7 +35,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
             Expanded(
                 flex: 3,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   child: Column(
@@ -51,20 +50,20 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.arrow_back,
                                   size: 28,
                                 )),
                             IconButton(
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.deblur_outlined,
                                   size: 28,
                                 )),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Padding(
@@ -85,25 +84,25 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "${widget.user.name}",
+                                    widget.user.name,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
                                     widget.user.about,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black54,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   StreamBuilder(
@@ -115,7 +114,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                           // if data has been loading
                                           case ConnectionState.waiting:
                                           case ConnectionState.none:
-                                            return Center(
+                                            return const Center(
                                               child:
                                                   CircularProgressIndicator(),
                                             );
@@ -125,17 +124,17 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                           case ConnectionState.active:
                                           case ConnectionState.done:
                                             final data = snapshot.data?.docs;
-                                            _clist = data
+                                            clist = data
                                                     ?.map((e) =>
                                                         Connection.fromJson(
                                                             e.data()))
                                                     .toList() ??
                                                 [];
 
-                                            if (_clist.isNotEmpty) {
+                                            if (clist.isNotEmpty) {
                                               return ElevatedButton.icon(
                                                   style: ElevatedButton.styleFrom(
-                                                      shape: StadiumBorder(),
+                                                      shape: const StadiumBorder(),
                                                       backgroundColor:
                                                           Colors.white,
                                                       minimumSize: Size(
@@ -151,12 +150,12 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                                     await APIs.dropConnections(
                                                         widget.user);
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.cut,
                                                     size: 26,
                                                     color: Colors.black,
                                                   ),
-                                                  label: Text(
+                                                  label: const Text(
                                                     "Disconnect Now",
                                                     style: TextStyle(
                                                         fontSize: 14,
@@ -165,7 +164,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                             } else {
                                               return ElevatedButton.icon(
                                                   style: ElevatedButton.styleFrom(
-                                                      shape: StadiumBorder(),
+                                                      shape: const StadiumBorder(),
                                                       backgroundColor: White,
                                                       minimumSize: Size(
                                                           MediaQuery.of(context)
@@ -181,12 +180,12 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                                         .makeNewConnections(
                                                             widget.user);
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.cut,
                                                     size: 26,
                                                     color: Colors.black,
                                                   ),
-                                                  label: Text(
+                                                  label: const Text(
                                                     "Connect Now",
                                                     style: TextStyle(
                                                         fontSize: 14,
@@ -208,7 +207,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                 flex: 8,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Background,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -220,38 +219,38 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasData) {
-                          _posts = snapshot.data!.docs
+                          posts = snapshot.data!.docs
                               .map((doc) => Post.fromJson(
                                   doc.data() as Map<String, dynamic>))
                               .toList();
 
-                          _postId =
+                          postId =
                               snapshot.data!.docs.map((e) => e.id).toList();
                         }
 
                         return GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
                           ),
-                          itemCount: _posts.length,
+                          itemCount: posts.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ViewPostScreen(
-                                            post: _posts[index],
+                                            post: posts[index],
                                             cuser: widget.user,
-                                            postsId: _postId[index],
+                                            postsId: postId[index],
                                           ))),
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                        image: NetworkImage(_posts[index].link),
+                                        image: NetworkImage(posts[index].link),
                                         fit: BoxFit.cover)),
                               ),
                             );

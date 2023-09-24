@@ -1,4 +1,5 @@
-import 'dart:io';
+// ignore_for_file: camel_case_types
+
 import 'package:bataao/helper/dialogs.dart';
 import 'package:bataao/screens/bookmark_post_screen.dart/bookmark_post_screen.dart';
 import 'package:bataao/screens/edit_profile_screen/edit_profile_screen.dart';
@@ -8,7 +9,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../api/apis.dart';
 import '../../models/chat_user.dart';
 import '../../theme/style.dart';
@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   InkWell(
@@ -63,12 +63,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 imageUrl: widget.user.images,
                                 fit: BoxFit.fill,
                                 errorWidget: (context, url, error) =>
-                                    CircleAvatar(
+                                    const CircleAvatar(
                                   child: Icon(Icons.person),
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Column(
@@ -76,16 +76,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Text(
                                   widget.user.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   widget.user.about,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black45),
@@ -97,15 +97,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Divider(),
-                  SizedBox(
+                  const Divider(),
+                  const SizedBox(
                     height: 20,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.edit,
                         size: 26,
                         color: Sky_Blue,
@@ -118,11 +118,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     EditProfileScreen(user: APIs.selfInfo)));
                       },
                       title: "Edit"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.bookmark,
                         size: 26,
                         color: Sky_Blue,
@@ -135,44 +135,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     BookmarkPostScreen(users: widget.user)));
                       },
                       title: "Bookmark"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.document_scanner_outlined,
                         size: 26,
                         color: Sky_Blue,
                       ),
                       onTap: () {},
                       title: "Documentation"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.new_releases_outlined,
                         size: 26,
                         color: Sky_Blue,
                       ),
                       onTap: () {},
                       title: "What's New"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.settings_outlined,
                         size: 26,
                         color: Sky_Blue,
                       ),
                       onTap: () {},
                       title: "Settings"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   _profileItemCard(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.logout_outlined,
                         size: 26,
                         color: Sky_Blue,
@@ -193,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => WelcomeScreen()));
+                                    builder: (context) => const WelcomeScreen()));
                           });
                         });
                       },
@@ -214,7 +214,6 @@ class _profileItemCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const _profileItemCard({
-    super.key,
     required this.icon,
     required this.title,
     required this.onTap,
@@ -232,12 +231,12 @@ class _profileItemCard extends StatelessWidget {
           child: Row(
             children: [
               icon,
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16, fontWeight: FontWeight.w500, color: Sky_Blue),
               )
             ],

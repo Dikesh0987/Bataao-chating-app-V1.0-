@@ -1,6 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:bataao/models/bookmark_post.dart';
 import 'package:bataao/models/connection_model.dart';
 import 'package:bataao/models/post_model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
@@ -33,15 +36,16 @@ class APIs {
     await fmessaging.getToken().then((t) {
       if (t != null) {
         selfInfo.pushToken = t;
-        print('Push Token : $t');
+       debugPrint('Push Token : $t');
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message data: ${message.data}');
 
       if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
+        debugPrint(
+            'Message also contained a notification: ${message.notification}');
       }
     });
   }
@@ -50,17 +54,16 @@ class APIs {
       ChatUser chatUser, String msg) async {
     try {
       final body = {
-        "to": "${chatUser.pushToken}",
+        "to": chatUser.pushToken,
         "notification": {
-          "title": "${selfInfo.name}",
-          "body": "${msg}",
+          "title": selfInfo.name,
+          "body": msg,
           "android_channel_id": "chats"
         },
         "data": {
           "some_data": "User Id : ${selfInfo.id}",
         },
       };
-      var url = Uri.https('example.com', 'whatsit/create');
       var response =
           await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
               headers: {
@@ -69,10 +72,10 @@ class APIs {
                     'key=AAAAp6uIMyY:APA91bGFYnDE0ZuWbqJPUJ3uFP6Dgo6THmSzAGXQ4tT3E86uvDUNAml0_Mwcsi6jJvuFIYtQFCdYAR8EgaqVOpUXKwu-bJ_PNmVoIIvuBfzaZm8xsdhAZ5PFPFi-lbOt0xawBemBbEpU'
               },
               body: jsonEncode(body));
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
     } catch (e) {
-      print("\nsendPushNotifications : $e");
+      debugPrint("\nsendPushNotifications : $e");
     }
   }
 
@@ -96,7 +99,7 @@ class APIs {
   }
 
   // for create a new connection id ..
-  static String findConnectionID(String id) { 
+  static String findConnectionID(String id) {
     return user.uid.hashCode <= id.hashCode
         ? '${user.uid}_$id'
         : '${id}_${user.uid}';
@@ -183,7 +186,7 @@ class APIs {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final connection = Connection(
-      connectionId: '${getConnectionID(user.id)}',
+      connectionId: getConnectionID(user.id),
       fromId: APIs.selfInfo.id,
       toId: user.id,
       status: 'pending',
@@ -237,7 +240,7 @@ class APIs {
     });
 
     final connection = Connection(
-      connectionId: '${getConnectionID(user.id)}',
+      connectionId: getConnectionID(user.id),
       fromId: APIs.selfInfo.id,
       toId: user.id,
       status: 'accept',
@@ -557,7 +560,6 @@ class APIs {
   static Future<void> UnlikeData(
       ChatUser chatUser, Post post, String postsId) async {
     //sent time
-    final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final ref = firestore.collection('posts').doc(postsId).collection('list');
     await ref.doc(APIs.selfInfo.id).delete();
@@ -578,7 +580,7 @@ class APIs {
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllLikes(
       String postId) {
     return APIs.firestore
-        .collection('posts/${postId}/list')
+        .collection('posts/$postId/list')
         .orderBy('sent', descending: true)
         .snapshots();
   }
@@ -607,7 +609,7 @@ class APIs {
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllComments(
       String postId) {
     return APIs.firestore
-        .collection('posts/${postId}/comments')
+        .collection('posts/$postId/comments')
         .orderBy('sent', descending: true)
         .snapshots();
   }

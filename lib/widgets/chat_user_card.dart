@@ -32,7 +32,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
               case ConnectionState.none:
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
 
@@ -70,8 +70,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                       loadingBuilder: (BuildContext context,
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value: loadingProgress
@@ -87,20 +88,20 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                       },
                                     ),
                                   ))),
-                          SizedBox(width: 10.0),
+                          const SizedBox(width: 10.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
                                 widget.user.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 5.0),
-                              Container(
+                              const SizedBox(height: 5.0),
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
                                   _message != null
@@ -109,7 +110,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                           : _message!.msg
                                       : widget.user.about,
                                   maxLines: 1,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.blueGrey,
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
@@ -128,13 +129,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                 ? myDateUtil.getLastMessagesTime(
                                     context: context, time: _message!.sent)
                                 : "Say Hii !",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 12.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5.0),
+                          const SizedBox(height: 5.0),
                           _message != null
                               ? _message!.read.isEmpty &&
                                       _message!.fromId != APIs.user.uid
@@ -147,7 +148,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                             BorderRadius.circular(30.0),
                                       ),
                                       alignment: Alignment.center,
-                                      child: Text(
+                                      child: const Text(
                                         'NEW',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -158,15 +159,15 @@ class _ChatUserCardState extends State<ChatUserCard> {
                                     )
                                   : _message!.read.isEmpty &&
                                           _message!.toId != APIs.user.uid
-                                      ? Icon(
+                                      ? const Icon(
                                           Icons.done_all_outlined,
                                           color: Colors.grey,
                                         )
-                                      : Icon(
+                                      : const Icon(
                                           Icons.done_all_outlined,
                                           color: Colors.blue,
                                         )
-                              : Text("🤔")
+                              : const Text("🤔")
                         ],
                       ),
                     ],

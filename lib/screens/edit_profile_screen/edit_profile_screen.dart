@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:bataao/helper/dialogs.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key, required this.user});
 
   final ChatUser user;
- 
+
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -26,7 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return GestureDetector(
       // onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Color(0xffB9C1C7),
+        backgroundColor: const Color(0xffB9C1C7),
 
         // Main Body of this part
         body: Scaffold(
@@ -41,7 +43,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Expanded(
                         flex: 3,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
                           child: SingleChildScrollView(
@@ -59,20 +61,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.arrow_back,
                                             size: 28,
                                           )),
                                       IconButton(
                                           onPressed: () {},
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.deblur_outlined,
                                             size: 28,
                                           )),
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Stack(
@@ -105,8 +107,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         },
                                         height: 35,
                                         color: Colors.white,
-                                        shape: CircleBorder(),
-                                        child: Icon(
+                                        shape: const CircleBorder(),
+                                        child: const Icon(
                                           Icons.edit,
                                           color:
                                               Color.fromARGB(255, 23, 22, 23),
@@ -115,22 +117,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Text(
                                   widget.user.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   widget.user.about,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500),
@@ -142,7 +144,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Expanded(
                         flex: 5,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Background,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(30),
@@ -166,10 +168,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           borderRadius:
                                               BorderRadius.circular(30),
                                         ),
-                                        prefixIcon: Icon(Icons.person),
+                                        prefixIcon: const Icon(Icons.person),
                                         hintText: "eg. Dikesh Netam.",
                                         labelText: "Name")),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -185,15 +187,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           borderRadius:
                                               BorderRadius.circular(30),
                                         ),
-                                        prefixIcon: Icon(Icons.info_outline),
+                                        prefixIcon:
+                                            const Icon(Icons.info_outline),
                                         hintText: "eg. Dikesh Netam.",
                                         labelText: "About ")),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 ElevatedButton.icon(
                                     style: ElevatedButton.styleFrom(
-                                        shape: StadiumBorder(),
+                                        shape: const StadiumBorder(),
                                         backgroundColor: Colors.white,
                                         minimumSize: Size(
                                             MediaQuery.of(context).size.width *
@@ -209,12 +212,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         });
                                       }
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.save,
                                       size: 28,
                                       color: Colors.black,
                                     ),
-                                    label: Text(
+                                    label: const Text(
                                       "Update",
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.black),
@@ -237,20 +240,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _showBottomShit() {
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (context) {
           return ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: 30, bottom: 60),
+            padding: const EdgeInsets.only(top: 30, bottom: 60),
             children: [
-              Text(
+              const Text(
                 "Pick Profile Pictures ",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -264,7 +267,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             source: ImageSource.gallery, imageQuality: 80);
 
                         if (image != null) {
-                          print("Image Path : ${image.path}");
+                          debugPrint("Image Path : ${image.path}");
                           //update image
                           setState(() {
                             _image = image.path;
@@ -275,9 +278,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.white,
-                          fixedSize: Size(80, 80)),
+                          fixedSize: const Size(80, 80)),
                       child: Image.asset('assets/images/picture.png')),
                   ElevatedButton(
                       onPressed: () async {
@@ -287,7 +290,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             source: ImageSource.camera, imageQuality: 80);
 
                         if (image != null) {
-                          print("Image Path : ${image.path}");
+                          debugPrint("Image Path : ${image.path}");
                           //update image
                           setState(() {
                             _image = image.path;
@@ -298,9 +301,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.white,
-                          fixedSize: Size(80, 80)),
+                          fixedSize: const Size(80, 80)),
                       child: Image.asset('assets/images/camera.png')),
                 ],
               )

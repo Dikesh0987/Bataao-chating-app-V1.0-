@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:bataao/helper/my_date_util.dart';
 import 'package:bataao/widgets/comment_card.dart';
 import 'package:bataao/widgets/like_card.dart';
@@ -11,8 +13,11 @@ import '../../models/post_model.dart';
 import '../../theme/style.dart';
 
 class ViewPostScreen extends StatefulWidget {
-  ViewPostScreen(
-      {required this.post, required this.cuser, required this.postsId});
+  const ViewPostScreen(
+      {super.key,
+      required this.post,
+      required this.cuser,
+      required this.postsId});
   final Post post;
   final ChatUser cuser;
   final String postsId;
@@ -87,14 +92,14 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEDF0F6),
+      backgroundColor: const Color(0xFFEDF0F6),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 5.0),
+                padding: const EdgeInsets.only(top: 5.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -103,19 +108,19 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 1.0),
+                      padding: const EdgeInsets.symmetric(vertical: 1.0),
                       child: Column(
                         children: <Widget>[
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              Container(
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: ListTile(
                                   leading: Container(
                                     width: 50.0,
                                     height: 50.0,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
@@ -139,7 +144,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   ),
                                   title: Text(
                                     widget.cuser.name,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -152,21 +157,21 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.clear,
                                     size: 30,
                                   ))
                             ],
                           ),
                           InkWell(
-                            onDoubleTap: () => print('Like post'),
+                            onDoubleTap: () => debugPrint('Like post'),
                             child: Container(
-                              margin: EdgeInsets.all(10.0),
+                              margin: const EdgeInsets.all(10.0),
                               width: double.infinity,
                               height: 400.0,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25.0),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Colors.black45,
                                     offset: Offset(0, 5),
@@ -181,7 +186,8 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -200,7 +206,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                           ),
                                           iconSize: 30.0,
                                           onPressed: () async {
-                                            await _buttonPressed
+                                            _buttonPressed
                                                 ? APIs.UnlikeData(
                                                         APIs.selfInfo,
                                                         widget.post,
@@ -223,18 +229,18 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         ),
                                         Text(
                                           _collectionLength.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    SizedBox(width: 20.0),
+                                    const SizedBox(width: 20.0),
                                     Row(
                                       children: <Widget>[
                                         IconButton(
-                                          icon: Icon(Icons.chat_outlined),
+                                          icon: const Icon(Icons.chat_outlined),
                                           iconSize: 30.0,
                                           onPressed: () {
                                             setState(() {
@@ -244,7 +250,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         ),
                                         Text(
                                           _commentLength.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -274,14 +280,14 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               _likecomment
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Container(
                           height: MediaQuery.of(context).size.height * .95,
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30.0),
@@ -293,135 +299,134 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             children: [
                               _chatInput(),
                               Expanded(
-                                child: Container(
-                                  child: StreamBuilder(
-                                    stream: APIs.getAllComments(widget.postsId),
-                                    builder: (context, snapshot) {
-                                      switch (snapshot.connectionState) {
-                                        // if data has been loading
-                                        case ConnectionState.waiting:
-                                        case ConnectionState.none:
-                                          return Center(
-                                            child: CircularProgressIndicator(),
-                                          );
+                                child: StreamBuilder(
+                                  stream: APIs.getAllComments(widget.postsId),
+                                  builder: (context, snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      // if data has been loading
+                                      case ConnectionState.waiting:
+                                      case ConnectionState.none:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
 
-                                        // data lodede
+                                      // data lodede
 
-                                        case ConnectionState.active:
-                                        case ConnectionState.done:
-                                          final data = snapshot.data?.docs;
-                                          _commentList =
-                                              data?.map((e) => e.id).toList() ??
-                                                  [];
+                                      case ConnectionState.active:
+                                      case ConnectionState.done:
+                                        final data = snapshot.data?.docs;
+                                        _commentList =
+                                            data?.map((e) => e.id).toList() ??
+                                                [];
 
-                                          _comments = data
-                                                  ?.map((e) =>
-                                                      Comments.fromJson(
-                                                          e.data()))
-                                                  .toList() ??
-                                              [];
+                                        _comments = data
+                                                ?.map((e) =>
+                                                    Comments.fromJson(
+                                                        e.data()))
+                                                .toList() ??
+                                            [];
 
-                                          print(_commentList);
+                                        debugPrint("$_commentList");
 
-                                          if (_commentList.isNotEmpty) {
-                                            return StreamBuilder(
-                                              stream: APIs.getSalectedUserData(
-                                                  _commentList),
-                                              builder: (context, snapshot) {
-                                                switch (
-                                                    snapshot.connectionState) {
-                                                  // if data has been loading
-                                                  case ConnectionState.waiting:
-                                                  case ConnectionState.none:
-                                                    return Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
+                                        if (_commentList.isNotEmpty) {
+                                          return StreamBuilder(
+                                            stream: APIs.getSalectedUserData(
+                                                _commentList),
+                                            builder: (context, snapshot) {
+                                              switch (
+                                                  snapshot.connectionState) {
+                                                // if data has been loading
+                                                case ConnectionState.waiting:
+                                                case ConnectionState.none:
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+
+                                                // data lodede
+
+                                                case ConnectionState.active:
+                                                case ConnectionState.done:
+                                                  final data =
+                                                      snapshot.data?.docs;
+                                                  _list = data
+                                                          ?.map((e) => ChatUser
+                                                              .fromJson(
+                                                                  e.data()))
+                                                          .toList() ??
+                                                      [];
+
+                                                  if (_list.isNotEmpty) {
+                                                    return ListView.builder(
+                                                        itemCount:
+                                                            _list.length,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 5),
+                                                        physics:
+                                                            const BouncingScrollPhysics(),
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return CommentCard(
+                                                            user:
+                                                                _list[index],
+                                                            comments:
+                                                                _comments[
+                                                                    index],
+                                                          );
+                                                        });
+                                                  } else {
+                                                    return const Center(
+                                                      child: Text(
+                                                        "No Data Found",
+                                                        style: TextStyle(
+                                                            fontSize: 20),
+                                                      ),
                                                     );
-
-                                                  // data lodede
-
-                                                  case ConnectionState.active:
-                                                  case ConnectionState.done:
-                                                    final data =
-                                                        snapshot.data?.docs;
-                                                    _list = data
-                                                            ?.map((e) => ChatUser
-                                                                .fromJson(
-                                                                    e.data()))
-                                                            .toList() ??
-                                                        [];
-
-                                                    if (_list.isNotEmpty) {
-                                                      return ListView.builder(
-                                                          itemCount:
-                                                              _list.length,
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 5),
-                                                          physics:
-                                                              BouncingScrollPhysics(),
-                                                          itemBuilder:
-                                                              (context, index) {
-                                                            return CommentCard(
-                                                              user:
-                                                                  _list[index],
-                                                              comments:
-                                                                  _comments[
-                                                                      index],
-                                                            );
-                                                          });
-                                                    } else {
-                                                      return Center(
-                                                        child: Text(
-                                                          "No Data Found",
-                                                          style: TextStyle(
-                                                              fontSize: 20),
-                                                        ),
-                                                      );
-                                                    }
-                                                }
-                                              },
-                                            );
-                                          } else {
-                                            return Align(
-                                              alignment: Alignment.topCenter,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 50),
-                                                child: ElevatedButton.icon(
-                                                    style: ElevatedButton.styleFrom(
-                                                        shape: StadiumBorder(),
-                                                        backgroundColor:
-                                                            Colors.white,
-                                                        minimumSize: Size(
-                                                            MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                .5,
-                                                            MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height *
-                                                                .06)),
-                                                    onPressed: () {},
-                                                    icon: Icon(
-                                                      Icons.comment_bank,
-                                                      size: 28,
-                                                      color: Body,
-                                                    ),
-                                                    label: Text(
-                                                      "No Comments",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors.black),
-                                                    )),
-                                              ),
-                                            );
-                                          }
-                                      }
-                                    },
-                                  ),
+                                                  }
+                                              }
+                                            },
+                                          );
+                                        } else {
+                                          return Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 50),
+                                              child: ElevatedButton.icon(
+                                                  style: ElevatedButton.styleFrom(
+                                                      shape:
+                                                          const StadiumBorder(),
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      minimumSize: Size(
+                                                          MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              .5,
+                                                          MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              .06)),
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons.comment_bank,
+                                                    size: 28,
+                                                    color: Body,
+                                                  ),
+                                                  label: const Text(
+                                                    "No Comments",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black),
+                                                  )),
+                                            ),
+                                          );
+                                        }
+                                    }
+                                  },
                                 ),
                               ),
                             ],
@@ -432,7 +437,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                       child: Container(
                           height: MediaQuery.of(context).size.height * .95,
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30.0),
@@ -444,10 +449,10 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             stream: APIs.getAllLikes(widget.postsId),
                             builder: (context, snapshot) {
                               switch (snapshot.connectionState) {
-                                 // if data has been loading
+                                // if data has been loading
                                 case ConnectionState.waiting:
                                 case ConnectionState.none:
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
 
@@ -459,7 +464,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   _likeList =
                                       data?.map((e) => e.id).toList() ?? [];
 
-                                  print(_likeList);
+                                  debugPrint("$_likeList");
 
                                   if (_likeList.isNotEmpty) {
                                     return StreamBuilder(
@@ -470,7 +475,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                           // if data has been loading
                                           case ConnectionState.waiting:
                                           case ConnectionState.none:
-                                            return Center(
+                                            return const Center(
                                               child:
                                                   CircularProgressIndicator(),
                                             );
@@ -491,16 +496,17 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                               return ListView.builder(
                                                   itemCount: _list.length,
                                                   padding:
-                                                      EdgeInsets.only(top: 5),
+                                                      const EdgeInsets.only(
+                                                          top: 5),
                                                   physics:
-                                                      BouncingScrollPhysics(),
+                                                      const BouncingScrollPhysics(),
                                                   itemBuilder:
                                                       (context, index) {
                                                     return LikeCard(
                                                         user: _list[index]);
                                                   });
                                             } else {
-                                              return Center(
+                                              return const Center(
                                                 child: Text(
                                                   "No Data Found",
                                                   style:
@@ -518,7 +524,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         padding: const EdgeInsets.only(top: 50),
                                         child: ElevatedButton.icon(
                                             style: ElevatedButton.styleFrom(
-                                                shape: StadiumBorder(),
+                                                shape: const StadiumBorder(),
                                                 backgroundColor: Colors.white,
                                                 minimumSize: Size(
                                                     MediaQuery.of(context)
@@ -530,12 +536,12 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                                             .height *
                                                         .06)),
                                             onPressed: () {},
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.add_reaction_outlined,
                                               size: 28,
                                               color: Body,
                                             ),
-                                            label: Text(
+                                            label: const Text(
                                               "No Like ",
                                               style: TextStyle(
                                                   fontSize: 16,
@@ -557,38 +563,37 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
 
   Widget _chatInput() {
     String makeComment = "";
-    final TextEditingController _commentText = TextEditingController();
+    final TextEditingController commentText = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
-                child: Expanded(
-                    child: TextFormField(
-              controller: _commentText,
+            Expanded(
+                child: TextFormField(
+              controller: commentText,
               maxLines: null,
               onChanged: (value) => makeComment = value,
               decoration: InputDecoration(
-                  hintText: "Make Your Comments...",
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20))),
-            ))),
+              hintText: "Make Your Comments...",
+              hintStyle: const TextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 14),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20))),
+            )),
             // Send button
             MaterialButton(
                 minWidth: 0,
                 onPressed: () {
                   APIs.MakeComment(widget.post, widget.postsId, makeComment);
-                  _commentText.clear();
+                  commentText.clear();
                 },
                 color: Colors.white,
-                shape: CircleBorder(),
-                padding:
-                    EdgeInsets.only(top: 10, right: 5, left: 10, bottom: 10),
-                child: Icon(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.only(
+                    top: 10, right: 5, left: 10, bottom: 10),
+                child: const Icon(
                   Icons.send,
                   size: 28,
                   color: PrimaryBlue,

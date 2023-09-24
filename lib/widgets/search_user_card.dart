@@ -43,25 +43,25 @@ class _SearchUserCardState extends State<SearchUserCard> {
                       backgroundImage: NetworkImage(widget.user.images),
                     ),
                   ),
-                  SizedBox(width: 10.0),
+                  const SizedBox(width: 10.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         widget.user.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 5.0),
-                      Container(
+                      const SizedBox(height: 5.0),
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.45,
                         child: Text(
                           widget.user.about,
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 12.0,
                             fontWeight: FontWeight.w600,
@@ -79,7 +79,7 @@ class _SearchUserCardState extends State<SearchUserCard> {
                           // if data has been loading
                           case ConnectionState.waiting:
                           case ConnectionState.none:
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
 
@@ -98,10 +98,9 @@ class _SearchUserCardState extends State<SearchUserCard> {
                                 onPressed: () async {
                                   await APIs.dropConnections(widget.user);
                                 },
-                                child: Text("Disconnect"),
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     width: 2,
                                     color: Colors.blue,
                                   ),
@@ -109,16 +108,16 @@ class _SearchUserCardState extends State<SearchUserCard> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
+                                child: const Text("Disconnect"),
                               );
                             } else {
                               return OutlinedButton(
                                 onPressed: () async {
                                   await APIs.makeNewConnections(widget.user);
                                 },
-                                child: Text("Connect"),
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     width: 2,
                                     color: Colors.blue,
                                   ),
@@ -126,6 +125,7 @@ class _SearchUserCardState extends State<SearchUserCard> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
+                                child: const Text("Connect"),
                               );
                             }
                         }

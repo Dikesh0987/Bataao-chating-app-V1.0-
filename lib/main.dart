@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // FireBase Init
 void main() async {
@@ -15,7 +16,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
@@ -27,8 +28,8 @@ void main() async {
       importance: NotificationImportance.IMPORTANCE_HIGH,
       name: 'Chats',
     );
-    print("\nNotifications Chanel : ${result}");
-    runApp(MyApp());
+    debugPrint("\nNotifications Chanel : $result");
+    runApp(const MyApp());
   });
 }
 
@@ -42,7 +43,9 @@ class MyApp extends StatelessWidget {
       title: 'Bataao',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
+
+    fontFamily: GoogleFonts.lato().fontFamily,
+          appBarTheme: const AppBarTheme(
         elevation: 0,
         titleTextStyle: TextStyle(
             color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
@@ -51,8 +54,8 @@ class MyApp extends StatelessWidget {
       )),
       initialRoute: '/splash_screen',
       routes: {
-        '/welcome_screen': (context) => WelcomeScreen(),
-        '/splash_screen': (context) => SplashScreen()
+        '/welcome_screen': (context) => const WelcomeScreen(),
+        '/splash_screen': (context) => const SplashScreen()
       },
     );
   }

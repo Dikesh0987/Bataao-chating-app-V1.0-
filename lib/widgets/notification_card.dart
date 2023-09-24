@@ -43,25 +43,25 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
                       backgroundImage: NetworkImage(widget.user.images),
                     ),
                   ),
-                  SizedBox(width: 10.0),
+                  const SizedBox(width: 10.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         widget.user.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 5.0),
-                      Container(
+                      const SizedBox(height: 5.0),
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: Text(
                           widget.user.about,
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 15.0,
                             fontWeight: FontWeight.w600,
@@ -75,14 +75,14 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                       backgroundColor: Colors.white,
                       minimumSize: Size(MediaQuery.of(context).size.width * .1,
                           MediaQuery.of(context).size.height * .05)),
                   onPressed: () async {
                     await APIs.updateConnections(widget.user);
                   },
-                  child: Text(
+                  child: const Text(
                     "Accept",
                     style: TextStyle(fontSize: 16, color: Colors.black),
                   ))

@@ -1,4 +1,5 @@
 import 'package:bataao/screens/auth/login_screen.dart';
+import 'package:bataao/widgets/button/auth_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/style.dart';
@@ -11,39 +12,28 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(color: Stroke),
+          decoration: const BoxDecoration(
+            gradient: BG_Gradient,
+          ),
           child: Column(
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(color: Colors.transparent),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Container(
-                        width: 150,
-                        height: 150,
-                        child:
-                            Image.asset("assets/logos/logo_transparent.png")),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200),
+                  child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child:
+                          Image.asset("assets/logos/logo_transparent.png")),
                 ),
               ),
               Expanded(
                 flex: 1,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                        Colors.transparent,
-                        Colors.white30,
-                        Colors.white,
-                        Colors.white
-                      ])),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -51,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                           height: 50,
                         ),
                         Text(
-                          "We welcome you to\n Bataao",
+                          "We welcome you to Bataao",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: cTitle,
@@ -60,47 +50,9 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            // SizedBox(
-                            //   width: MediaQuery.of(context).size.width * .8,
-                            //   height: 50,
-                            //   child: ElevatedButton(
-                            //       onPressed: () {},
-                            //       style: ElevatedButton.styleFrom(
-                            //           elevation: 10,
-                            //           shape: new RoundedRectangleBorder(
-                            //             borderRadius:
-                            //                 new BorderRadius.circular(30.0),
-                            //             side: BorderSide(
-                            //                 color: Color(0xff050A30)),
-                            //           ),
-                            //           backgroundColor: Color(0xff050A30)),
-                            //       child: Text(' Register')),
-                            // ),
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .8,
-                              height: 50,
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 10,
-                                      shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(30.0),
-                                        side: BorderSide(color: Body),
-                                      ),
-                                      backgroundColor: Body),
-                                  child: Text(
-                                    ' Log in / Ragistration',
-                                  )),
+                            AuthButton(
+                              Title: "Login / Ragister",
+                              pages: LoginScreen(),
                             ),
                             SizedBox(
                               height: 20,

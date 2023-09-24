@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class myDateUtil {
@@ -57,14 +59,14 @@ class myDateUtil {
     if (time.day == now.day &&
         time.month == now.month &&
         time.year == now.year) {
-      return 'Last seen Today at ${formattedTime}';
+      return 'Last seen Today at $formattedTime';
     }
     if ((now.difference(time).inHours / 24).round() == 1) {
-      return 'Last een yesterday ${formattedTime}';
+      return 'Last een yesterday $formattedTime';
     }
 
     String month = _getMonth(time);
-    return 'Last seen on ${time.day} $month on ${formattedTime}';
+    return 'Last seen on ${time.day} $month on $formattedTime';
   }
 
   // get status post date and time
@@ -83,14 +85,14 @@ class myDateUtil {
     if (time.day == now.day &&
         time.month == now.month &&
         time.year == now.year) {
-      return 'Make at Today at ${formattedTime}';
+      return 'Make at Today at $formattedTime';
     }
     if ((now.difference(time).inHours / 24).round() == 1) {
-      return 'Make at yesterday ${formattedTime}';
+      return 'Make at yesterday $formattedTime';
     }
 
     String month = _getMonth(time);
-    return 'Last seen on ${time.day} $month on ${formattedTime}';
+    return 'Last seen on ${time.day} $month on $formattedTime';
   }
 
 

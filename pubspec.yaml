@@ -51,18 +51,20 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   shimmer: ^2.0.0
   firebase_database: ^10.0.14
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+    
+  flutter_lints: ^2.0.0
   flutter_launcher_icons: "^0.11.0"
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/logos/logo.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -98,15 +100,15 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   - family: Inter
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  #       - asset: assets/fonts/Inter/static/Inter-Medium.ttf
+  #       - asset: assets/fonts/Inter/static/Inter-Regular.ttf
+  #         style: i
+  #   - family: Roboto
   #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
+  #       - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+  #       - asset: assets/fonts/Inter/Roboto/Roboto-Regular.ttf
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,

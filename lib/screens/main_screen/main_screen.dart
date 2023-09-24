@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, use_build_context_synchronously
+
 import 'dart:io';
 import 'package:bataao/screens/all_users_screen/all_users_screen.dart';
 import 'package:bataao/screens/notification_screen/notification_screen.dart';
@@ -29,35 +31,35 @@ class _MainScreenState extends State<MainScreen> {
 
     SystemChannels.lifecycle.setMessageHandler((message) {
       if (APIs.auth.currentUser != null) {
-        if (message.toString().contains('resume'))
+        if (message.toString().contains('resume')) {
           APIs.updateActiveStatus(true);
-        if (message.toString().contains('pause'))
+        }
+        if (message.toString().contains('pause')) {
           APIs.updateActiveStatus(false);
+        }
       }
       return Future.value(message);
     });
   }
 
   int _pageIndex = 0;
-  List<Color> _colo = [
-    White,
-    White,
-    White,
-    White,
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor.withOpacity(1),
       // floating action buttton
       floatingActionButton: _pageIndex == 0
           ? FloatingActionButton(
               materialTapTargetSize: MaterialTapTargetSize.padded,
               backgroundColor: White,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AllUsersScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AllUsersScreen()));
               },
-              child: Icon(
+              child: const Icon(
                 Icons.search_rounded,
                 size: 26,
                 color: Orange,
@@ -70,29 +72,25 @@ class _MainScreenState extends State<MainScreen> {
 
       // Bottom nav bar
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.transparent,
-        buttonBackgroundColor: White,
+        backgroundColor: const Color(0xffD8F1FE),
+        buttonBackgroundColor: Colors.white,
         height: 60,
-        color: White,
-        items: <Widget>[
+        items: const <Widget>[
           Icon(
             Icons.chat_outlined,
             size: 24,
-            color: Orange,
           ),
           Icon(
             Icons.fiber_manual_record_outlined,
             size: 24,
-            color: Orange,
           ),
           Icon(
             Icons.person_2_outlined,
             size: 24,
-            color: Orange,
           ),
         ],
         animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 200),
+        animationDuration: const Duration(milliseconds: 200),
         onTap: (index) {
           setState(() {
             _pageIndex = index;
@@ -115,12 +113,6 @@ class _MainScreenState extends State<MainScreen> {
         );
         break;
 
-      // case 2:
-      //   widget = StatusScreen(
-      //     user: APIs.selfInfo,
-      //   );
-      //   break;
-
       default:
         widget = ProfileScreen(
           user: APIs.selfInfo,
@@ -133,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
 
 // Main Body
 class _mainBody extends StatefulWidget {
-  const _mainBody({super.key});
+  const _mainBody();
 
   @override
   State<_mainBody> createState() => __mainBodyState();
@@ -147,7 +139,7 @@ class __mainBodyState extends State<_mainBody> {
   List<String> _connList = [];
 
   // for searching values ..
-  List<ChatUser> _searchList = [];
+  final List<ChatUser> _searchList = [];
 
   // for searching status ..
   bool _isSearching = false;
@@ -176,16 +168,18 @@ class __mainBodyState extends State<_mainBody> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: primaryColor.withOpacity(.5),
               automaticallyImplyLeading: false,
               title: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: _isSearching
                     ? TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "search name or email ",
                         ),
-                        style: TextStyle(fontSize: 16, letterSpacing: 0.5),
+                        style:
+                            const TextStyle(fontSize: 16, letterSpacing: 0.5),
                         autofocus: true,
                         onChanged: (val) {
                           _searchList.clear();
@@ -232,9 +226,10 @@ class __mainBodyState extends State<_mainBody> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NotificationScreen()));
+                                builder: (context) =>
+                                    const NotificationScreen()));
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.notification_important_outlined,
                         size: 24,
                         color: Body,
@@ -246,7 +241,7 @@ class __mainBodyState extends State<_mainBody> {
                         onPressed: () {
                           _showPostBottomShit();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_box_outlined,
                           size: 24,
                           color: Body,
@@ -264,7 +259,7 @@ class __mainBodyState extends State<_mainBody> {
                                   builder: (context) =>
                                       StatusScreen(user: APIs.selfInfo)));
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.looks,
                           size: 24,
                           color: Body,
@@ -281,9 +276,8 @@ class __mainBodyState extends State<_mainBody> {
           children: [
             Expanded(
                 child: Container(
-                    decoration: BoxDecoration(
-                        // color: Background,
-                        gradient: gradient0,
+                    decoration: const BoxDecoration(
+                        gradient: BG_Gradient,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20))),
@@ -294,7 +288,7 @@ class __mainBodyState extends State<_mainBody> {
                           // if data is loading
                           case ConnectionState.waiting:
                           case ConnectionState.none:
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
 
@@ -304,7 +298,7 @@ class __mainBodyState extends State<_mainBody> {
                             final data = snapshot.data?.docs;
                             _connList = data?.map((e) => e.id).toList() ?? [];
 
-                            print(_connList);
+                            debugPrint("$_connList");
 
                             if (_connList.isNotEmpty) {
                               return StreamBuilder(
@@ -314,7 +308,7 @@ class __mainBodyState extends State<_mainBody> {
                                     // if data is loading
                                     case ConnectionState.waiting:
                                     case ConnectionState.none:
-                                      return Center(
+                                      return const Center(
                                         child: CircularProgressIndicator(),
                                       );
 
@@ -333,8 +327,10 @@ class __mainBodyState extends State<_mainBody> {
                                           itemCount: _isSearching
                                               ? _searchList.length
                                               : _list.length,
-                                          padding: EdgeInsets.only(top: 5),
-                                          physics: BouncingScrollPhysics(),
+                                          padding:
+                                              const EdgeInsets.only(top: 5),
+                                          physics:
+                                              const BouncingScrollPhysics(),
                                           itemBuilder: (context, index) {
                                             return ChatUserCard(
                                               user: _isSearching
@@ -344,7 +340,7 @@ class __mainBodyState extends State<_mainBody> {
                                           },
                                         );
                                       } else {
-                                        return Center(
+                                        return const Center(
                                           child: Text(
                                             "No Data Found",
                                             style: TextStyle(fontSize: 20),
@@ -358,7 +354,7 @@ class __mainBodyState extends State<_mainBody> {
                               return Center(
                                 child: ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
-                                    shape: StadiumBorder(),
+                                    shape: const StadiumBorder(),
                                     backgroundColor: Colors.white,
                                     minimumSize: Size(
                                       MediaQuery.of(context).size.width * .5,
@@ -370,15 +366,15 @@ class __mainBodyState extends State<_mainBody> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AllUsersScreen()),
+                                              const AllUsersScreen()),
                                     );
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.add_reaction,
                                     size: 28,
                                     color: Colors.black,
                                   ),
-                                  label: Text(
+                                  label: const Text(
                                     "Make Some Connections",
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.black),
@@ -401,7 +397,7 @@ class __mainBodyState extends State<_mainBody> {
         context: context,
         isScrollControlled: true,
         useSafeArea: true,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (context) {
@@ -415,12 +411,13 @@ class __mainBodyState extends State<_mainBody> {
                     Expanded(
                         flex: 2,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
                           child: SingleChildScrollView(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Column(
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -433,12 +430,12 @@ class __mainBodyState extends State<_mainBody> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.clear,
                                             size: 24,
                                           )),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
                                             horizontal: 10),
                                         child: Text(
                                           "New Post",
@@ -450,10 +447,10 @@ class __mainBodyState extends State<_mainBody> {
                                       )
                                     ],
                                   ),
-                                  Divider(),
+                                  const Divider(),
                                   Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       _image != null
@@ -472,7 +469,7 @@ class __mainBodyState extends State<_mainBody> {
                                                   onPressed: () {
                                                     _showBottomShit();
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.post_add_outlined,
                                                     size: 50,
                                                   )),
@@ -488,7 +485,7 @@ class __mainBodyState extends State<_mainBody> {
                                                   onPressed: () {
                                                     _showBottomShit();
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.post_add_outlined,
                                                     size: 40,
                                                     color: Body,
@@ -513,12 +510,12 @@ class __mainBodyState extends State<_mainBody> {
                                                             BorderRadius
                                                                 .circular(10),
                                                       ),
-                                                      prefixIcon:
-                                                          Icon(Icons.bolt),
+                                                      prefixIcon: const Icon(
+                                                          Icons.bolt),
                                                       hintText:
                                                           "Just Burn Out.",
                                                       labelText: "Mention")),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 20,
                                               ),
                                               TextFormField(
@@ -532,7 +529,7 @@ class __mainBodyState extends State<_mainBody> {
                                                             BorderRadius
                                                                 .circular(10),
                                                       ),
-                                                      prefixIcon: Icon(Icons
+                                                      prefixIcon: const Icon(Icons
                                                           .pin_drop_outlined),
                                                       hintText: "Naya Raipur",
                                                       labelText: "Location")),
@@ -547,13 +544,13 @@ class __mainBodyState extends State<_mainBody> {
                             ),
                           ),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Expanded(
                         flex: 5,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Background,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
@@ -571,16 +568,16 @@ class __mainBodyState extends State<_mainBody> {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
-                                        prefixIcon: Icon(Icons.label),
+                                        prefixIcon: const Icon(Icons.label),
                                         hintText: "Just Burn Out.",
                                         labelText: "Title")),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
 
                                 ElevatedButton.icon(
                                     style: ElevatedButton.styleFrom(
-                                        shape: StadiumBorder(),
+                                        shape: const StadiumBorder(),
                                         backgroundColor: Colors.white,
                                         minimumSize: Size(
                                             MediaQuery.of(context).size.width *
@@ -607,21 +604,21 @@ class __mainBodyState extends State<_mainBody> {
                                       });
                                     },
                                     icon: _loading
-                                        ? Icon(
+                                        ? const Icon(
                                             Icons.circle_outlined,
                                             size: 28,
                                             color: PrimaryBlue,
                                           )
-                                        : Icon(
+                                        : const Icon(
                                             Icons.post_add_outlined,
                                             size: 28,
                                             color: Colors.black,
                                           ),
                                     label: _loading
-                                        ? Center(
+                                        ? const Center(
                                             child: CircularProgressIndicator(),
                                           )
-                                        : Text(
+                                        : const Text(
                                             "Post",
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -643,20 +640,20 @@ class __mainBodyState extends State<_mainBody> {
   void _showBottomShit() {
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (context) {
           return ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: 30, bottom: 60),
+            padding: const EdgeInsets.only(top: 30, bottom: 60),
             children: [
-              Text(
+              const Text(
                 "Pick Profile Pictures ",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -670,7 +667,7 @@ class __mainBodyState extends State<_mainBody> {
                             source: ImageSource.gallery, imageQuality: 80);
 
                         if (image != null) {
-                          print("Image Path : ${image.path}");
+                          debugPrint("Image Path : ${image.path}");
                           //update image
                           setState(() {
                             _image = image.path;
@@ -681,9 +678,9 @@ class __mainBodyState extends State<_mainBody> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.white,
-                          fixedSize: Size(80, 80)),
+                          fixedSize: const Size(80, 80)),
                       child: Image.asset('assets/images/picture.png')),
                   ElevatedButton(
                       onPressed: () async {
@@ -693,7 +690,7 @@ class __mainBodyState extends State<_mainBody> {
                             source: ImageSource.camera, imageQuality: 80);
 
                         if (image != null) {
-                          print("Image Path : ${image.path}");
+                          debugPrint("Image Path : ${image.path}");
                           //update image
                           setState(() {
                             _image = image.path;
@@ -704,9 +701,9 @@ class __mainBodyState extends State<_mainBody> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           backgroundColor: Colors.white,
-                          fixedSize: Size(80, 80)),
+                          fixedSize: const Size(80, 80)),
                       child: Image.asset('assets/images/camera.png')),
                 ],
               )

@@ -1,9 +1,6 @@
 import 'package:bataao/models/chat_user.dart';
 import 'package:bataao/screens/view_profile_screen/view_profile_screen.dart';
-import 'package:bataao/theme/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'dialogs/profile_view.dart';
 
@@ -18,12 +15,12 @@ class _LikeCardState extends State<LikeCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: ListTile(
         leading: Container(
           width: 50.0,
           height: 50.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -60,7 +57,7 @@ class _LikeCardState extends State<LikeCard> {
           },
           child: Text(
             widget.user.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -74,11 +71,11 @@ class _LikeCardState extends State<LikeCard> {
             },
             child: Text(widget.user.about)),
         trailing: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.favorite,
           ),
           color: Colors.red,
-          onPressed: () => print('Like comment'),
+          onPressed: () => debugPrint('Like comment'),
         ),
       ),
     );

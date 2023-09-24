@@ -3,7 +3,6 @@ import 'package:bataao/screens/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../theme/style.dart';
 import '../main_screen/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,13 +20,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(milliseconds: 350), () {
       // exit Full screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.white,
           statusBarColor: Colors.transparent));
       // Checking if User in Already Loged In
       if (APIs.auth.currentUser != null) {
         // Get Current User Data from google ...
-        print('\nUser : ${APIs.auth.currentUser}');
+        debugPrint('\nUser : ${APIs.auth.currentUser}');
         // Redirect Home page if user in Current user ...
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const MainScreen()));
@@ -42,11 +41,24 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Expanded(
           child: Container(
-            width: 150,
-            height: 150,
-            child: Image(image: AssetImage("assets/logos/logo.png")),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF0072FF),
+                  Color(0xFF00C6FF)
+                ], // Replace with your desired colors
+              ),
+            ),
+            child: const Center(
+                child: SizedBox(
+              width: 150,
+              height: 150,
+              child: Image(image: AssetImage("assets/logos/logo.png")),
+            )),
           ),
         ),
       ),

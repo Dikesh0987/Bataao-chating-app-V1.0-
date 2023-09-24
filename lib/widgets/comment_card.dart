@@ -2,8 +2,6 @@ import 'package:bataao/models/chat_user.dart';
 import 'package:bataao/models/comment_model.dart';
 import 'package:bataao/theme/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class CommentCard extends StatefulWidget {
   const CommentCard({super.key, required this.user, required this.comments});
@@ -17,12 +15,12 @@ class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: ListTile(
         leading: Container(
           width: 50.0,
           height: 50.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -46,15 +44,15 @@ class _CommentCardState extends State<CommentCard> {
         ),
         title: Text(
           widget.user.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         subtitle: Text(widget.comments.comment),
         trailing: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.comment_bank_outlined,
           ),
           color: Body,
-          onPressed: () => print('Like comment'),
+          onPressed: () => debugPrint('Like comment'),
         ),
       ),
     );
