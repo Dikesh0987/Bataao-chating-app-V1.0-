@@ -62,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
               child: const Icon(
                 Icons.search_rounded,
                 size: 26,
-                color: Orange,
+                color: IconCol,
               ),
             )
           : null,
@@ -72,21 +72,20 @@ class _MainScreenState extends State<MainScreen> {
 
       // Bottom nav bar
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: const Color(0xffD8F1FE),
+        backgroundColor: primaryColor,
         buttonBackgroundColor: Colors.white,
         height: 60,
         items: const <Widget>[
           Icon(
             Icons.chat_outlined,
             size: 24,
+            color: IconCol,
           ),
-          Icon(
-            Icons.fiber_manual_record_outlined,
-            size: 24,
-          ),
+          Icon(Icons.fiber_manual_record_outlined, size: 24, color: IconCol),
           Icon(
             Icons.person_2_outlined,
             size: 24,
+            color: IconCol,
           ),
         ],
         animationCurve: Curves.easeInOut,
@@ -207,7 +206,6 @@ class __mainBodyState extends State<_mainBody> {
                       ),
               ),
               elevation: 0,
-
               actions: [
                 IconButton(
                     onPressed: () {
@@ -217,7 +215,7 @@ class __mainBodyState extends State<_mainBody> {
                     },
                     icon: Icon(
                       _isSearching ? Icons.clear : Icons.search,
-                      color: Body,
+                      color: IconCol,
                       size: 24,
                     )),
                 if (_isSearching == false)
@@ -232,7 +230,7 @@ class __mainBodyState extends State<_mainBody> {
                       icon: const Icon(
                         Icons.notification_important_outlined,
                         size: 24,
-                        color: Body,
+                        color: IconCol,
                       )),
                 if (_isSearching == false)
                   Padding(
@@ -244,7 +242,7 @@ class __mainBodyState extends State<_mainBody> {
                         icon: const Icon(
                           Icons.add_box_outlined,
                           size: 24,
-                          color: Body,
+                          color: IconCol,
                         )),
                   ),
                 if (_isSearching == false)
@@ -262,13 +260,10 @@ class __mainBodyState extends State<_mainBody> {
                         icon: const Icon(
                           Icons.looks,
                           size: 24,
-                          color: Body,
+                          color: IconCol,
                         )),
                   )
               ],
-              // floating: true,
-              // expandedHeight: 60.0,
-              // forceElevated: innerBoxIsScrolled,
             ),
           ];
         },

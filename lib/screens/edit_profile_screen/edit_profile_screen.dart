@@ -32,7 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         // Main Body of this part
         body: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: primaryColor,
           body: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: SafeArea(
@@ -44,8 +44,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         flex: 3,
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
+                              // gradient: BG_Gradient,
+                              color: primaryColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
                           child: SingleChildScrollView(
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.center,
@@ -145,10 +148,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         flex: 5,
                         child: Container(
                           decoration: const BoxDecoration(
-                              color: Background,
+                              gradient: BG_Gradient,
                               borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  topRight: Radius.circular(30))),
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 30),
@@ -197,7 +200,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ElevatedButton.icon(
                                     style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),
-                                        backgroundColor: Colors.white,
+                                        backgroundColor: IconCol,
                                         minimumSize: Size(
                                             MediaQuery.of(context).size.width *
                                                 .9,
@@ -215,12 +218,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     icon: const Icon(
                                       Icons.save,
                                       size: 28,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                     label: const Text(
                                       "Update",
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.black),
+                                          fontSize: 16, color: Colors.white),
                                     ))
                               ],
                             ),

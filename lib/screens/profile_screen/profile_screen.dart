@@ -4,6 +4,8 @@ import 'package:bataao/helper/dialogs.dart';
 import 'package:bataao/screens/bookmark_post_screen.dart/bookmark_post_screen.dart';
 import 'package:bataao/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:bataao/screens/my_profile_screen/my_profile_screen.dart';
+import 'package:bataao/screens/notification_screen/notification_screen.dart';
+import 'package:bataao/screens/status_screen/status_screen.dart';
 import 'package:bataao/screens/welcome_screen/welcome_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,185 +28,244 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        
-        body: SafeArea(
-          child: Container(
-            decoration: const BoxDecoration(gradient: BG_Gradient),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.height * .01),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                MyProfileScreen(user: widget.user))),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: White,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: CachedNetworkImage(
-                                width: 75,
-                                height: 75,
-                                imageUrl: widget.user.images,
-                                fit: BoxFit.fill,
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  child: Icon(Icons.person),
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                backgroundColor: primaryColor.withOpacity(.5),
+                automaticallyImplyLeading: false,
+                elevation: 0,
+                title: Text(
+                  "profile",
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold, color: Body),
+                ),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NotificationScreen()));
+                      },
+                      icon: const Icon(
+                        Icons.notification_important_outlined,
+                        size: 24,
+                        color: Body,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 0),
+                    child: IconButton(
+                        onPressed: () {
+                          // _showPostBottomShit();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      StatusScreen(user: APIs.selfInfo)));
+                        },
+                        icon: const Icon(
+                          Icons.looks,
+                          size: 24,
+                          color: Body,
+                        )),
+                  )
+                ],
+              ),
+            ];
+          },
+          body: SafeArea(
+            child: Container(
+              decoration: const BoxDecoration(
+                  gradient: BG_Gradient,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * .01),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MyProfileScreen(user: widget.user))),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 0, 0, 0)
+                                    .withOpacity(0.2), // Shadow color
+                                spreadRadius: .1, // Spread radius
+                                blurRadius: 7, // Blur radius
+                                offset:
+                                    Offset(0, 3), // Offset in x and y direction
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachedNetworkImage(
+                                  width: 75,
+                                  height: 75,
+                                  imageUrl: widget.user.images,
+                                  fit: BoxFit.fill,
+                                  errorWidget: (context, url, error) =>
+                                      const CircleAvatar(
+                                    child: Icon(Icons.person),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.user.name,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  widget.user.about,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black45),
-                                ),
-                              ],
-                            )
-                          ],
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.user.name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    widget.user.about,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black45),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Divider(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.edit,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) =>
-                                    EditProfileScreen(user: APIs.selfInfo)));
-                      },
-                      title: "Edit"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.bookmark,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) =>
-                                    BookmarkPostScreen(users: widget.user)));
-                      },
-                      title: "Bookmark"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.document_scanner_outlined,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () {},
-                      title: "Documentation"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.new_releases_outlined,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () {},
-                      title: "What's New"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.settings_outlined,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () {},
-                      title: "Settings"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _profileItemCard(
-                      icon: const Icon(
-                        Icons.logout_outlined,
-                        size: 26,
-                        color: Sky_Blue,
-                      ),
-                      onTap: () async {
-                        // update logout status in firebase ..
-                        APIs.updateActiveStatus(false);
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Divider(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.edit,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      EditProfileScreen(user: APIs.selfInfo)));
+                        },
+                        title: "Edit"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.bookmark,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      BookmarkPostScreen(users: widget.user)));
+                        },
+                        title: "Bookmark"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.document_scanner_outlined,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () {},
+                        title: "Documentation"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.new_releases_outlined,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () {},
+                        title: "What's New"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.settings_outlined,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () {},
+                        title: "Settings"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _profileItemCard(
+                        icon: const Icon(
+                          Icons.logout_outlined,
+                          size: 26,
+                          color: IconCol,
+                        ),
+                        onTap: () async {
+                          // update logout status in firebase ..
+                          APIs.updateActiveStatus(false);
 
-                        // For showing progress bar ...
-                        MyProgressBars.showProgressBar(context);
-                        // Sign Out from app ...
-                        await APIs.auth.signOut().then((value) async {
-                          await GoogleSignIn().signOut().then((value) {
-                            // For hideing progress ...
-                            Navigator.pop(context);
+                          // For showing progress bar ...
+                          MyProgressBars.showProgressBar(context);
+                          // Sign Out from app ...
+                          await APIs.auth.signOut().then((value) async {
+                            await GoogleSignIn().signOut().then((value) {
+                              // For hideing progress ...
+                              Navigator.pop(context);
 
-                            APIs.auth = FirebaseAuth.instance;
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const WelcomeScreen()));
+                              APIs.auth = FirebaseAuth.instance;
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const WelcomeScreen()));
+                            });
                           });
-                        });
-                      },
-                      title: "Log Out")
-                ],
+                        },
+                        title: "Log Out")
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
@@ -225,7 +286,17 @@ class _profileItemCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: White, borderRadius: BorderRadius.circular(10)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 0, 0, 0)
+                    .withOpacity(0.1), // Shadow color
+                spreadRadius: .1, // Spread radius
+                blurRadius: 7, // Blur radius
+                offset: Offset(0, 3), // Offset in x and y direction
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Row(
@@ -237,7 +308,7 @@ class _profileItemCard extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w500, color: Sky_Blue),
+                    fontSize: 16, fontWeight: FontWeight.w500, color: IconCol),
               )
             ],
           ),

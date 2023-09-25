@@ -27,7 +27,7 @@ class _FeedScreenState extends State<FeedScreen> {
   // for all users ..
   List<ChatUser> _list = [];
 
-  // for searching values ..
+  // for searching values .. 
   final List<ChatUser> _searchList = [];
 
   // for searching status ..
@@ -110,19 +110,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             size: 24,
                             color: Body,
                           )),
-                    // if (_isSearching == false)
-                    //   Padding(
-                    //     padding: const EdgeInsets.only(right: 0),
-                    //     child: IconButton(
-                    //         onPressed: () {
-                    //           _showPostBottomShit();
-                    //         },
-                    //         icon: const Icon(
-                    //           Icons.add_box_outlined,
-                    //           size: 24,
-                    //           color: Body,
-                    //         )),
-                    //   ),
+                    
                     if (_isSearching == false)
                       Padding(
                         padding: const EdgeInsets.only(right: 0),

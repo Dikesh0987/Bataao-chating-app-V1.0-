@@ -134,7 +134,8 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                             if (clist.isNotEmpty) {
                                               return ElevatedButton.icon(
                                                   style: ElevatedButton.styleFrom(
-                                                      shape: const StadiumBorder(),
+                                                      shape:
+                                                          const StadiumBorder(),
                                                       backgroundColor:
                                                           Colors.white,
                                                       minimumSize: Size(
@@ -164,7 +165,8 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                                             } else {
                                               return ElevatedButton.icon(
                                                   style: ElevatedButton.styleFrom(
-                                                      shape: const StadiumBorder(),
+                                                      shape:
+                                                          const StadiumBorder(),
                                                       backgroundColor: White,
                                                       minimumSize: Size(
                                                           MediaQuery.of(context)

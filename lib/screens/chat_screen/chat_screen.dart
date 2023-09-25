@@ -45,10 +45,11 @@ class _ChatScreenState extends State<ChatScreen> {
           }
         },
         child: Scaffold(
-          backgroundColor: White,
+          backgroundColor: primaryColor,
           // App Bar
           appBar: AppBar(
             automaticallyImplyLeading: false,
+            backgroundColor: primaryColor,
             flexibleSpace: _appBar(),
           ),
 
@@ -57,11 +58,12 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: Container(
-                  decoration: const BoxDecoration(
-                      color: Background,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30))),
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                          colors: [Color(0xffFFFFFF), Color(0xffD8F1FE)],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter),
+                      borderRadius: BorderRadius.circular(20)),
                   child: StreamBuilder(
                     stream: APIs.getAllMessages(widget.user),
                     builder: (context, snapshot) {
@@ -262,122 +264,121 @@ class _ChatScreenState extends State<ChatScreen> {
           )),
     );
   }
-
+ 
   // Bottom chat input fileds ....
 
   Widget _chatInput() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-      child: Row(
-        children: [
-          Expanded(
-            child: Card(
-              color: Stroke,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                children: [
-                  // Emoji BUtton
-                  IconButton(
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        setState(() {
+    return Container(
+      color: primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+        child: Row(
+          children: [
+            Expanded(
+              child: Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    // Emoji BUtton
+                    IconButton(
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            _showEmoji = !_showEmoji;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.emoji_emotions_outlined,
+                          color: Body,
+                        )),
+                    // text filed for type text
+                    Expanded(
+                        child: TextField(
+                      maxLines: null,
+                      onTap: () {
+                        if (_showEmoji) {
                           _showEmoji = !_showEmoji;
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.emoji_emotions_outlined,
-                        color: Body,
-                      )),
-                  // text filed for type text
-                  Expanded(
-                      child: TextField(
-                    maxLines: null,
-                    onTap: () {
-                      if (_showEmoji) {
-                        _showEmoji = !_showEmoji;
-                      }
-                    },
-                    controller: _textController,
-                    keyboardType: TextInputType.multiline,
-                    decoration: const InputDecoration(
-                        hintText: "Just Say Hello ! ",
-                        hintStyle:
-                            TextStyle(color: Body, fontWeight: FontWeight.bold),
-                        border: InputBorder.none),
-                  )),
-                  // Gallery Button
-                  IconButton(
-                      onPressed: () async {
-                        final ImagePicker picker = ImagePicker();
-                        // Pick multipal image
-                        final List<XFile> images =
-                            await picker.pickMultiImage(imageQuality: 70);
-                        for (var i in images) {
-                          setState(() {
-                            _isUploading = !_isUploading;
-                          });
-                          APIs.sendChatImage(widget.user, File(i.path));
-                          setState(() {
-                            _isUploading = !_isUploading;
-                          });
                         }
                       },
-                      icon: const Icon(
-                        Icons.image,
-                        color: Body,
-                      )),
+                      controller: _textController,
+                      keyboardType: TextInputType.multiline,
+                      decoration: const InputDecoration(
+                          hintText: "Just Say Hello ! ",
+                          hintStyle: TextStyle(
+                              color: Body, fontWeight: FontWeight.bold),
+                          border: InputBorder.none),
+                    )),
+                    // Gallery Button
+                    IconButton(
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          // Pick multipal image
+                          final List<XFile> images =
+                              await picker.pickMultiImage(imageQuality: 70);
+                          for (var i in images) {
+                            setState(() {
+                              _isUploading = !_isUploading;
+                            });
+                            APIs.sendChatImage(widget.user, File(i.path));
+                            setState(() {
+                              _isUploading = !_isUploading;
+                            });
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.image,
+                          color: Body,
+                        )),
 
-                  //Camera Button
-                  IconButton(
-                      onPressed: () async {
-                        final ImagePicker picker = ImagePicker();
-                        // Pick an image
-                        final XFile? image = await picker.pickImage(
-                            source: ImageSource.camera, imageQuality: 70);
+                    //Camera Button
+                    IconButton(
+                        onPressed: () async {
+                          final ImagePicker picker = ImagePicker();
+                          // Pick an image
+                          final XFile? image = await picker.pickImage(
+                              source: ImageSource.camera, imageQuality: 70);
 
-                        if (image != null) {
-                          setState(() {
-                            _isUploading = !_isUploading;
-                          });
-                          debugPrint("Image Path : ${image.path}");
+                          if (image != null) {
+                            setState(() {
+                              _isUploading = !_isUploading;
+                            });
+                            debugPrint("Image Path : ${image.path}");
 
-                          APIs.sendChatImage(widget.user, File(image.path));
-                          setState(() {
-                            _isUploading = !_isUploading;
-                          });
-                          //for hide bottom sheet
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.camera,
-                        color: Body,
-                      )),
-                ],
+                            APIs.sendChatImage(widget.user, File(image.path));
+                            setState(() {
+                              _isUploading = !_isUploading;
+                            });
+                            //for hide bottom sheet
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.camera,
+                          color: Body,
+                        )),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // Send button
-          MaterialButton(
-              minWidth: 0,
-              onPressed: () {
-                if (_textController.text.isNotEmpty) {
-                  APIs.sendMessage(
-                      widget.user, _textController.text, Type.text);
-                  _textController.text = "";
-                }
-              },
-              color: Colors.white,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.only(
-                  top: 10, right: 5, left: 10, bottom: 10),
-              child: const Icon(
-                Icons.send,
-                size: 28,
-                color: PrimaryBlue,
-              ))
-        ],
+            // Send button
+            MaterialButton(
+                minWidth: 0,
+                onPressed: () {
+                  if (_textController.text.isNotEmpty) {
+                    APIs.sendMessage(
+                        widget.user, _textController.text, Type.text);
+                    _textController.text = "";
+                  }
+                },
+                color: Colors.white,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.only(
+                    top: 10, right: 5, left: 10, bottom: 10),
+                child: const Icon(Icons.send, size: 28, color: Colors.black))
+          ],
+        ),
       ),
     );
   }

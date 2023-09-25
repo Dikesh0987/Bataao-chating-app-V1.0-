@@ -21,6 +21,7 @@ class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
     bool isSelf = APIs.user.uid == widget.message.fromId;
+
     return InkWell(
         onLongPress: () {
           _showBottomShit(isSelf);
@@ -41,8 +42,17 @@ class _MessageCardState extends State<MessageCard> {
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.text ? 15 : 2),
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 color: White,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                        .withOpacity(0.5), // Shadow color
+                    spreadRadius: .1, // Spread radius
+                    blurRadius: 7, // Blur radius
+                    offset: Offset(0, 3), // Offset in x and y direction
+                  ),
+                ],
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10),
@@ -50,7 +60,10 @@ class _MessageCardState extends State<MessageCard> {
             child: widget.message.type == Type.text
                 ? Text(
                     widget.message.msg,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500),
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -124,16 +137,30 @@ class _MessageCardState extends State<MessageCard> {
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.text ? 15 : 2),
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: const BoxDecoration(
-                color: PrimaryBlue,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
+            decoration: BoxDecoration(
+                color: primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                        .withOpacity(0.5), // Shadow color
+                    spreadRadius: .1, // Spread radius
+                    blurRadius: 7, // Blur radius
+                    offset: Offset(0, 3), // Offset in x and y direction
+                  ),
+                ],
+                borderRadius: widget.message.type == Type.text
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))
+                    : BorderRadius.circular(10)),
             child: widget.message.type == Type.text
                 ? Text(
                     widget.message.msg,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500),
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(10),

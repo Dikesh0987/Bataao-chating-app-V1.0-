@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 // Primary Colors ..
 const PrimaryBlue = Color(0xff4A86F7);
+
+
 const cTitle = Color(0xff35353D);
 const Body = Color(0xff050A30);
 const Stroke = Color(0xffE9EDF1);
@@ -28,37 +30,7 @@ Gradient gradient1 = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
-Gradient gradient0 = const LinearGradient(
-  colors: [White, Background, Background],
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-);
-Gradient gradient2 = LinearGradient(
-  colors: [
-    Colors.red.withOpacity(0.8),
-    Colors.orange.withOpacity(0.8),
-  ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-);
 
-Gradient gradient3 = LinearGradient(
-  colors: [
-    Colors.blue.withOpacity(0.8),
-    Colors.cyan.withOpacity(0.8),
-  ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-);
-
-Gradient gradient4 = LinearGradient(
-  colors: [
-    Colors.black.withOpacity(0.8),
-    Colors.grey.withOpacity(0.8),
-  ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-);
 
 // for skelton loader ..
 const Color grayColor = Color(0xFF8D8D8E);
@@ -70,10 +42,10 @@ const double defaultPadding = 16.0;
 
 
 
-
-
 const Color primaryColor = Color(0xffD8F1FE);
 
+
+const IconCol = Color(0xff050A30);
 
 const BG_Gradient = LinearGradient(
     colors: [Color(0xffFFFFFF), Color(0xffD8F1FE)],

@@ -43,7 +43,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       const Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: Text(
-                          "Notifications",
+                          "notifications ",
                           style: TextStyle(
                               fontSize: 16,
                               color: Body,

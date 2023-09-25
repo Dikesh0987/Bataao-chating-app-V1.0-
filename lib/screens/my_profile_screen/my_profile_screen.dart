@@ -21,7 +21,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     final String imgUrl = widget.user.images;
 
-
     List<Post> posts = [];
     List<String> postId = [];
 
